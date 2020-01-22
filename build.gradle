@@ -1,3 +1,5 @@
+import org.gradle.internal.os.OperatingSystem;
+
 buildscript {
     repositories {
         maven { url "https://repo.grails.org/grails/core" }
@@ -8,7 +10,7 @@ buildscript {
         classpath "org.grails.plugins:views-gradle:2.0.0.BUILD-SNAPSHOT"
         classpath "com.bertramlabs.plugins:asset-pipeline-gradle:3.0.10"
         classpath "org.grails.plugins:hibernate5:7.0.0"
-        classpath "gradle.plugin.com.github.erdi.webdriver-binaries:webdriver-binaries-gradle-plugin:2.0"
+        classpath "gradle.plugin.com.github.erdi.webdriver-binaries:webdriver-binaries-gradle-plugin:2.2"
     }
 }
 
@@ -80,11 +82,11 @@ dependencies {
     testCompile "org.mockito:mockito-core"
     testCompile "org.grails:grails-web-testing-support"
     testCompile "org.grails.plugins:geb"
-    testCompile "org.seleniumhq.selenium:selenium-remote-driver:3.14.0"
-    testCompile "org.seleniumhq.selenium:selenium-api:3.14.0"
-    testCompile "org.seleniumhq.selenium:selenium-support:3.14.0"
-    testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:3.14.0"
-    testRuntime "org.seleniumhq.selenium:selenium-firefox-driver:3.14.0"
+    testCompile "org.seleniumhq.selenium:selenium-remote-driver:3.141.59"
+    testCompile "org.seleniumhq.selenium:selenium-api:3.141.59"
+    testCompile "org.seleniumhq.selenium:selenium-support:3.141.59"
+    testRuntime "org.seleniumhq.selenium:selenium-chrome-driver:3.141.59"
+    testRuntime "org.seleniumhq.selenium:selenium-firefox-driver:3.141.59"
 
     compile group: 'org.mariadb.jdbc', name: 'mariadb-java-client', version: '2.5.3'
     compile 'org.grails.plugins:spring-security-core:4.0.0.RC3'
@@ -140,7 +142,12 @@ assets {
 }
 
 webdriverBinaries {
-    chromedriver '2.45.0'
+    chromedriver {
+        if (OperatingSystem.current().isWindows()) {
+            architecture = "X86"
+        }
+        version =  '2.45.0'
+    }
     geckodriver '0.24.0'
 }
 
@@ -150,4 +157,3 @@ tasks.withType(Test) {
     systemProperty "webdriver.chrome.driver", System.getProperty('webdriver.chrome.driver')
     systemProperty "webdriver.gecko.driver", System.getProperty('webdriver.gecko.driver')
 }
-
