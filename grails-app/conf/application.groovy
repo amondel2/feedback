@@ -1,7 +1,7 @@
 String pass = System.getProperty("DB_PASSWORD")?.toString() ?: System.getenv("DB_PASSWORD")?.toString()
 String user = System.getProperty("DB_USER")?.toString()  ?: System.getenv("DB_USER")?.toString()
-String dbString = "jdbc:mariadb://localhost:3306/feedback?useUnicode=yes&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true"
-		//System.getenv("JDBC_CONNECTION_STRING_GOALS")?.toString() ?: System.getProperty("JDBC_CONNECTION_STRING_GOALS")?.toString()
+String dbString = System.getenv("JDBC_CONNECTION_STRING_FEED")?.toString() ?: System.getProperty("JDBC_CONNECTION_STRING_FEED")?.toString()
+//"jdbc:mariadb://localhost:3306/feedback?useUnicode=yes&characterEncoding=UTF-8&useSSL=false&allowPublicKeyRetrieval=true"
 dataSource {
 	pooled = true
 	jmxExport = true
