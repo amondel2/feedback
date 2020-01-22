@@ -36,6 +36,7 @@ class BootStrap {
                 ua.accountExpired = false
                 ua.accountExpired = false
                 ua.email = "ideaadmin@foo.com"
+                ua.hireDate = new Date()
                 ua.save(failOnError: true)
             }
         }
@@ -49,6 +50,7 @@ class BootStrap {
                 uu.lastName = "User"
                 uu.employeeId = "23122"
                 uu.enabled = true
+                uu.hireDate = new Date()
                 uu.accountExpired = false
                 uu.accountExpired = false
                 uu.email = "amondelblatt@foo.com"
