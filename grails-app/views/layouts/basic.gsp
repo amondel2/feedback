@@ -33,8 +33,8 @@
           <ul class="nav navbar-nav">
             <li><a  class="nav-link" href="${request.contextPath}/">Home</a></li>
              <sec:ifLoggedIn>
-				 <li><a  class="nav-link" href="${request.contextPath}/projectManager/">Manage My Org</a></li>
-             	<li><a  class="nav-link" href="${request.contextPath}/goals/">Manage My Goals</a></li>
+				 <li><a  class="nav-link" href="${request.contextPath}/projectManager/orgMapper">Manage My Org</a></li>
+             	<li><a  class="nav-link" href="${request.contextPath}/projectManager/">Manage My People</a></li>
 				 <sec:ifAnyGranted roles="ROLE_REPORTER,ROLE_ADMIN">
              	<li><a  class="nav-link" href="${request.contextPath}/reports">Generate Reports</a></li>
 				 </sec:ifAnyGranted>

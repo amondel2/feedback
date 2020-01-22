@@ -9,6 +9,9 @@ class RegisterCommand implements  grails.validation.Validateable {
     String email
     String password
     String password2
+    String employeeId
+    String lastName
+    String firstName
 
     static constraints = {
         username validator: { value, command ->
@@ -20,9 +23,13 @@ class RegisterCommand implements  grails.validation.Validateable {
                 return 'registerCommand.username.unique'
             }
         }
+        employeeId nullable: false
+        firstName nullable: false
+        lastName nullable: false
+        hireDate nullable: false
         email email: true, validator: { value, command ->
 
-            if(!value.toLowerCase().trim().endsWith('@reedtech.com')) {
+            if(!value.toLowerCase().trim().endsWith('@foo.com')) {
                 return 'reedtech.email.required'
             }
 

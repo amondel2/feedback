@@ -5,7 +5,7 @@
 // You're free to add application-wide JavaScript to this file, but it's generally better 
 // to create separate JavaScript files as needed.
 //
-//= require jquery_new
+//= require jquery-3.3.1.min
 //= require bootstrap
 //= require jquery-ui
 //= require jstree-min

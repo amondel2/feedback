@@ -13,9 +13,8 @@ class ExtendTagsTagLib {
 	SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy")
 
 	def getUserFName = {attrs,body->
-//		Employees user = Employees.findByUser(springSecurityService.currentUser)
-//		  def name =  user ? user.firstName : ""
-		  out << body() <<""
+		  String name =  springSecurityService.currentUser?.firstName ?: ""
+		  out << body() << name
 	}
 
 	def goalTypeDropDown = {attrs, body ->
@@ -35,14 +34,14 @@ class ExtendTagsTagLib {
 	def dirEmployeeDropDown = {attrs, body ->
 
 		def str = ""
-//		Employees emp = Employees.findByUser(springSecurityService.getCurrentUser())
-//		if( employeeService.doesEmpHaveDirects(emp,attrs.year)) {
-//			def rtn = []
-//			employeeService.getAllEmployeesChildernFlat(emp.id,rtn,attrs.year)
-//			rtn.sort( { k1, k2 -> k1.firstName <=> k2.firstName } as Comparator )
-//			str = "<div style='padding:3px 0px;'><label for='${attrs.uid}_emps'>Select Employee: </label> " + g.select([id:attrs.uid+"_emps",name:"dir_emps",class:"form-check-inline", style: "max-width:271px;",from:rtn,optionValue:{ it.firstName + " " + it.lastName}, optionKey: 'id']) + "<button class=\"switchEmps btn btn-secondary\" >Save and Change to Selected Employee</button></div>"
-//
-//		}
+		User emp = springSecurityService.getCurrentUser()
+		if( employeeService.doesEmpHaveDirects(emp,attrs.year)) {
+			def rtn = []
+			employeeService.getAllEmployeesChildernFlat(emp.id,rtn,attrs.year)
+			rtn.sort( { k1, k2 -> k1.firstName <=> k2.firstName } as Comparator )
+			str = "<div style='padding:3px 0px;'><label for='${attrs.uid}_emps'>Select Employee: </label> " + g.select([id:attrs.uid+"_emps",name:"dir_emps",class:"form-check-inline", style: "max-width:271px;",from:rtn,optionValue:{ it.firstName + " " + it.lastName}, optionKey: 'id']) + "<button class=\"switchEmps btn btn-secondary\" >Save and Change to Selected Employee</button></div>"
+
+		}
 		out << body() << str
 	}
 
