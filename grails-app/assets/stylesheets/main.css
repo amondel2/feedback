@@ -427,11 +427,11 @@ th.desc a {
 }
 
 .odd {
-    background: #f7f7f7;
+    background: #ADD8E6;
 }
 
 .even {
-    background: #ffffff;
+    background: #ffffE0;
 }
 
 th:hover, tr:hover {

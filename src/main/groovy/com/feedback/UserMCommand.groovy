@@ -42,7 +42,7 @@ class UserMCommand implements Validateable {
 
     UserMCommand(json) {
         this.id = json.id
-        this.name = json.toString()
+        this.name = json.getFullName()
         this.employeeId = json.employeeId
         this.parentId = UserBoss.findByEmployeeAndDefaultBoss(json,true)?.first()?.id
     }

@@ -11,7 +11,7 @@ class OrgJobCommnad implements  grails.validation.Validateable  {
 
     OrgJobCommnad(json) {
         this.id = json.id
-        this.name = json.toString()
+        this.name = json.job?.name
         this.parentId = json.orgId
     }
 

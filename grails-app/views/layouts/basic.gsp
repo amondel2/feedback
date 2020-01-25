@@ -70,12 +70,10 @@
       </div>
     </nav>
     <div class="container">
-    	<div class="starter-template" style="margin-top:70px;">
 		<g:if test="${!flash.error.equals(null)}">
 			<div class="fm-error-msg error-details ui-state-error">${flash.error}</div>
 		</g:if>
 		<g:layoutBody/>
-		 </div>
      </div>
      <footer class="footer navbar-fixed-bottom navbar-dark bg-dark">
      		<div class="container" style="color:#FFFFFF;">&copy; 2015<script>new Date().getFullYear()>2010&&document.write("-"+new Date().getFullYear());</script>, Aaron Mondelblatt. <g:meta name="info.app.version"/>

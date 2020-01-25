@@ -24,6 +24,11 @@ class User extends GemericDomainObject {
     Date endDate
     Boolean manager = false
 
+
+    String getFullName(){
+        "${this.firstName} ${this.lastName}"
+    }
+
     Set<Role> getAuthorities() {
         (UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
     }
