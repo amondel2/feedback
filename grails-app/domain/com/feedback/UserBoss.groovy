@@ -6,7 +6,7 @@ class UserBoss extends GemericDomainObject {
 
     User employee
     User boss
-    Boolean defaultBoss = false
+    Boolean defaultBoss = true
 
     static belongsTo = [employee:User,boss:User]
 
@@ -44,6 +44,14 @@ class UserBoss extends GemericDomainObject {
         id display:true
         employee unique: 'boss'
         boss unique: 'employee'
+    }
+
+    def afterInsert() {
+        removeOtherDefaults()
+    }
+
+    def afterUpdate() {
+        removeOtherDefaults()
     }
 
     def removeOtherDefaults() {

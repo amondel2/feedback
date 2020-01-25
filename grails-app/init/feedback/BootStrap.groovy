@@ -3,6 +3,7 @@ package feedback
 import com.feedback.Organization
 import com.feedback.User
 import com.feedback.Role
+import com.feedback.UserBoss
 import com.feedback.UserRole
 import com.feedback.Job
 import com.feedback.JobOrg
@@ -56,6 +57,11 @@ class BootStrap {
                 uu.email = "amondelblatt@foo.com"
                 uu.save(failOnError: true)
             }
+        }
+
+        UserBoss.withTransaction {
+            UserBoss us = UserBoss.findOrCreateByBossAndEmployee(ua,uu)
+            us.save()
         }
 
         UserRole.withTransaction {

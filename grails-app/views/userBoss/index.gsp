@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="layout" content="main" />
+        <meta name="layout" content="basic" />
+        <asset:stylesheet src="main.css"/>
         <g:set var="entityName" value="${message(code: 'userBoss.label', default: 'UserBoss')}" />
         <title><g:message code="default.list.label" args="[entityName]" /></title>
     </head>
