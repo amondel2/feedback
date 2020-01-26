@@ -20,6 +20,8 @@ class BootStrap {
             r.save(failOnError: true)
             r1 = Role.findOrCreateByAuthority("ROLE_USER")
             r1.save(failOnError: true)
+            r2 = Role.findOrCreateByAuthority("ROLE_UAT_ADMIN")
+            r2.save(failOnError: true)
         }
 
         User ua
