@@ -37,6 +37,7 @@ class UserService {
         u.employeeId = registerCommand.employeeId
         u.username = registerCommand.username
         u.password = registerCommand.password
+        u.hireDate = registerCommand.hireDate
         u.accountLocked= false
         u.passwordExpired = false
         u.validate()

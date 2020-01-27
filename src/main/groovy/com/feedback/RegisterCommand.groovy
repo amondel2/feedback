@@ -12,6 +12,7 @@ class RegisterCommand implements  grails.validation.Validateable {
     String employeeId
     String lastName
     String firstName
+    Date hireDate = new Date()
 
     static constraints = {
         username validator: { value, command ->

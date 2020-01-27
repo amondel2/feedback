@@ -15,6 +15,7 @@ class BootStrap {
         String pass = System.getProperty("DB_PASSWORD")?.toString() ?: System.getenv("DB_PASSWORD")?.toString()
         Role r
         Role r1
+        Role r2
         Role.withTransaction {
             r = Role.findOrCreateByAuthority("ROLE_ADMIN")
             r.save(failOnError: true)
