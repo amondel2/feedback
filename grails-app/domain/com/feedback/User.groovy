@@ -33,7 +33,7 @@ class User extends GemericDomainObject {
         (UserRole.findAllByUser(this) as List<UserRole>)*.role as Set<Role>
     }
 
-    static hasMany = [urs:UserRole, bosses:UserBoss, employees:UserBoss,jobs:UserJob]
+    static hasMany = [urs:UserRole, bosses:UserBoss, employees:UserBoss,jobs:UserJob,uats:UserUats,issues:Issue]
     static mappedBy = [bosses:'employee',employees:'boss']
 
     static constraints = {

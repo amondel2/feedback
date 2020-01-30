@@ -9,29 +9,8 @@ class UserRole extends GemericDomainObject {
 
     static belongsTo = [user: User, role: Role]
 
-
     User user
     Role role
-
-
-    @Override
-    boolean equals(other) {
-        if (other instanceof UserRole) {
-            other.userId == user?.id && other.roleId == role?.id
-        }
-    }
-
-    @Override
-    int hashCode() {
-        int hashCode = HashCodeHelper.initHash()
-        if (user) {
-            hashCode = HashCodeHelper.updateHash(hashCode, user.id)
-        }
-        if (role) {
-            hashCode = HashCodeHelper.updateHash(hashCode, role.id)
-        }
-        hashCode
-    }
 
     static UserRole get(String userId, String roleId) {
         criteriaFor(userId, roleId).get()
@@ -72,14 +51,8 @@ class UserRole extends GemericDomainObject {
 
     static constraints = {
         id nullable:false, display: true
-        user nullable: false
-        role nullable: false, validator: { Role r, UserRole ur ->
-            if (ur.user?.id) {
-                if (UserRole.exists(ur.user.id, r.id)) {
-                    return ['userRole.exists']
-                }
-            }
-        }
+        user nullable: false, unique: 'role'
+        role nullable: false,  unique: 'user'
     }
 
     static mapping = {

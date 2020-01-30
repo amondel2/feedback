@@ -10,37 +10,7 @@ class UserBoss extends GemericDomainObject {
 
     static belongsTo = [employee:User,boss:User]
 
-    UserBoss(User u, User r) {
-        this()
-        employee = u
-        boss = r
-    }
-
-    static boolean exists(String employeeId, String bossId) {
-        UserBoss.where {
-            employee == User.load(employeeId) &&
-            boss == User.load(bossId)
-        }.count()
-    }
-
-    @Override
-    boolean equals(other) {
-        if (!(other instanceof UserBoss)) {
-            return false
-        }
-
-        other.employee?.id == employee?.id && other.boss?.id == boss?.id
-    }
-
-    @Override
-    int hashCode() {
-        def builder = new HashCodeBuilder()
-        if (employee) builder.append(employee.id)
-        if (boss) builder.append(boss.id)
-        builder.toHashCode()
-    }
-
-    static constraints = {
+   static constraints = {
         id display:true
         employee unique: 'boss'
         boss unique: 'employee'

@@ -20,6 +20,7 @@ class Role extends GemericDomainObject {
 
     static mapping = {
         id generator: 'assigned'
-        cache true
+        authority cache:  true
+        id cache: true
     }
 }
