@@ -17,7 +17,7 @@ class UATSession extends GemericDomainObject {
         version false
     }
 
-    static hasMany = [users:UserUats,issues:Issue]
+    static hasMany = [users:UserUats,issues:Issue,questions:UATSessionQuestions]
     static belongsTo = [program:Program]
 
     Date startDate

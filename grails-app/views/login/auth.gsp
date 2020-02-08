@@ -114,6 +114,10 @@
 
             <p>
                 <g:link controller="register"><g:message code='springSecurity.register.label'/></g:link>
+                <br />
+                <span class="forgot-link">
+                    <a href="#" id="forgot-linkhref"><g:message code='spring.security.ui.login.forgotPassword'/></a>
+                </span>
             </p>
 
             <p id="remember_me_holder">
@@ -127,11 +131,20 @@
         </form>
     </div>
 </div>
+<div style="display:none">
+    <g:form controller='register' action='showChanallage' useToken="true" name='forgotFrm'>
+        <input type="hidden" name="usernameForgot" id="usernameForgot" value=""/>
+    </g:form>
+</div>
 <script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function(event) {
+    $(document).ready(function(){
         document.forms['loginForm'].elements['username'].focus();
+        $("#forgot-linkhref").on("click",function(e){
+            e.preventDefault();
+            $("#usernameForgot").val($("#username").val());
+            $("#forgotFrm").submit();
+        });
     });
-
     function passwordDisplayToggle() {
         var toggleEl = document.getElementById("passwordToggler");
         var eyeIcon = '\u{1F441}';

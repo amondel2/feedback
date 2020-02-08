@@ -6,6 +6,7 @@ class UserUats extends GemericDomainObject {
         UATSession uats
         String machinenName
 
+        static hasMany = [response:UserUATResponse]
         static belongsTo = [user:User,uats:UATSession]
 
         static constraints = {

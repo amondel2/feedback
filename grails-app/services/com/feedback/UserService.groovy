@@ -1,14 +1,14 @@
 package com.feedback
 
 import grails.gorm.transactions.Transactional
+import org.hibernate.NonUniqueResultException
 
 @Transactional
 class UserService {
 
     def saveResetToken(params,guid) {
-        def empid = params.emp
-        User emp = User.get(empid)
-        emp.restToken = token
+        User emp = getUserById(params.emp)
+        emp.restToken = guid
         emp.save(flush:true)
     }
 
@@ -25,6 +25,24 @@ class UserService {
          }.collect{
             ['title':it.title,'votes':it.votes.size(),'creaated':it.dateCreated]
         }
+    }
+
+    User getUserByUserName(String userName) {
+        User user
+        try {
+            user = User.withCriteria(uniqueResult: true) {
+                eq("username", userName, [ignoreCase: true])
+            }
+        } catch (NonUniqueResultException e) {
+            user = User.withCriteria(uniqueResult: true) {
+                eq("username", userName)
+            }
+        }
+        user
+    }
+
+    User getUserById(String id) {
+        User.get(id)
     }
 
     Boolean createUser(RegisterCommand registerCommand){

@@ -12,7 +12,7 @@ class Question extends GemericDomainObject  {
         version false
     }
 
-    static hasMany = [answers:Answer]
+    static hasMany = [answers:Answer,sessions:UATSessionQuestions]
 
     QuestionType questionType
     String question
