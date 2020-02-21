@@ -5,6 +5,7 @@ class Answer extends GemericDomainObject {
     static constraints = {
         answer nullable: false, blank: false
         question nullable: false
+        orderNumber nullable: false
     }
 
     static mapping = {
@@ -16,5 +17,6 @@ class Answer extends GemericDomainObject {
 
     String answer
     Question question
+    int orderNumber
 
 }

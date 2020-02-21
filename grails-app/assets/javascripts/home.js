@@ -27,7 +27,7 @@ if($("#getPeopleUnder").length > 0 ) {
 }
 
 $.ajax({
-    url: window.fmBaseDir + 'getMyGoals',
+    url: window.fmBaseDir + 'getMyUats',
     method: "GET",
     cache: false
 }).done(function (data) {

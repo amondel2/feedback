@@ -2,5 +2,5 @@ package com.feedback
 
 enum QuestionType {
 
-    MultiChoice,Open,Likert,Dropdown
+    MultiChoice,Open,Likert,Dropdown,CheckBox,BooleanYesNo,BooleanTrueFalse
 }

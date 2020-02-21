@@ -1,8 +1,5 @@
 package com.feedback
 
-import grails.compiler.GrailsCompileStatic
-
-@GrailsCompileStatic
 class GemericDomainObject implements Serializable {
 
     String id

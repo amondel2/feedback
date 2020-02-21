@@ -1,6 +1,13 @@
 package feedback
 
+import com.feedback.Answer
+import com.feedback.Program
+import com.feedback.UATSession
+import com.feedback.UATSessionQuestions
+import com.feedback.UserUats
 import com.feedback.Organization
+import com.feedback.Question
+import com.feedback.QuestionType
 import com.feedback.User
 import com.feedback.Role
 import com.feedback.UserBoss
@@ -8,6 +15,7 @@ import com.feedback.UserRole
 import com.feedback.Job
 import com.feedback.JobOrg
 import com.feedback.UserJob
+import com.lsdatabase.MName
 
 class BootStrap {
 
@@ -74,6 +82,14 @@ class BootStrap {
             ur1.save()
             UserRole ur2 = UserRole.findOrCreateByUserAndRole(ua,r1)
             ur2.save()
+        }
+
+        MName m1,m2
+        MName.withTransaction {
+            m1 = MName.findOrCreateByMachineNameAndUserName("7xder","aaron")
+            m2 = MName.findOrCreateByMachineNameAndUserName("2x45612","admin")
+            m1.save()
+            m2.save()
         }
 
 
@@ -146,10 +162,78 @@ class BootStrap {
             mtactorJob = UserJob.findOrCreateByUserAndJob(uu,mtactor)
             mtactorJob.save()
             m4WritterJob = UserJob.findOrCreateByUserAndJob(uu,m4Writter)
-            m4WritterJob.save()
+            m4WritterJob.save(failOnError:true)
+        }
+        Question q1,q2,q3,q4,q5;
+        Question.withTransaction {
+            q1 = Question.findOrCreateByQuestionAndQuestionType("Did You Execute a Save? ", QuestionType.BooleanYesNo)
+            q2 = Question.findOrCreateByQuestionAndQuestionType("Please Add Any Additional Comments ", QuestionType.Open)
+            q3 = Question.findOrCreateByQuestionAndQuestionType("Please Choose How Long you have used the software", QuestionType.MultiChoice)
+            q4 = Question.findOrCreateByQuestionAndQuestionType("Please Rate the Software on Statisfaction", QuestionType.Likert)
+            q5 = Question.findOrCreateByQuestionAndQuestionType("Chose The Best Choice?", QuestionType.Dropdown)
+            [q1,q2,q3,q4,q5].each { it.save(failOnError:true)}
+        }
+
+        Answer a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13
+        Answer.withTransaction {
+            a1  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"Less than 3 months",1)
+            a2  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"3-10 months",2)
+            a3  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"10 months to 3 years",3)
+            a4  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"More than four years",4)
+            a5 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Exceeds All Expections",1)
+            a6 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Exceeds Some Expections",2)
+            a7 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Meets Expections",3)
+            a8 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Doesn't Meet Some Expections",4)
+            a9 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Doesn't Meet Any Expections",5)
+            a10 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Fries",1)
+            a11 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Onion Rings",2)
+            a12 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Beer",3)
+            a13 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Wings",4)
+            [a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13].each { it.save(failOnError:true)}
+        }
+
+        Program p1,p2,p3
+        Program.withTransaction {
+            p1 = Program.findOrCreateByName("Foo")
+            p2 = Program.findOrCreateByName("Bar")
+            p3 = Program.findOrCreateByName("Jane")
+            [p1,p2,p3].each { it.save(failOnError:true)}
         }
 
 
+        UATSession uas1, uas2
+        UATSession.withTransaction {
+            uas1 = UATSession.findOrCreateByTitleAndProgram("Test Foo UAT",p1)
+            uas2 = UATSession.findOrCreateByTitleAndProgram("Test Bar UAT",p2)
+            if(uas1.startDate.equals(null)) {
+                uas1.startDate = new Date()
+            }
+            if(uas2.startDate.equals(null)) {
+                uas2.startDate = new Date()
+            }
+            [uas1, uas2].each { it.save(failOnError:true)}
+        }
+
+        UATSessionQuestions uasq1,uasq2,uasq3,uasq4,uasq5,uasq6,uasq7,uasq8
+        UATSessionQuestions.withTransaction {
+            uasq1 = UATSessionQuestions.findOrCreateByQuestionAndSessionAndOrderNumber(q1,uas1,1)
+            uasq2 = UATSessionQuestions.findOrCreateByQuestionAndSessionAndOrderNumber(q2,uas1,5)
+            uasq3 = UATSessionQuestions.findOrCreateByQuestionAndSessionAndOrderNumber(q3,uas1,3)
+            uasq4 = UATSessionQuestions.findOrCreateByQuestionAndSessionAndOrderNumber(q4,uas1,4)
+            uasq5 = UATSessionQuestions.findOrCreateByQuestionAndSessionAndOrderNumber(q5,uas1,2)
+            uasq6 = UATSessionQuestions.findOrCreateByQuestionAndSessionAndOrderNumber(q1,uas2,1)
+            uasq7 = UATSessionQuestions.findOrCreateByQuestionAndSessionAndOrderNumber(q2,uas2,3)
+            uasq8 = UATSessionQuestions.findOrCreateByQuestionAndSessionAndOrderNumber(q3,uas2,2)
+            [uasq1,uasq2,uasq3,uasq4,uasq5,uasq6,uasq7,uasq8].each { it.save(failOnError:true)}
+        }
+
+        UserUats uut1,uut2,uut3
+        UserUats.withTransaction {
+            uut1 = UserUats.findOrCreateByUserAndUatsAndMachinenName(uu,uas1,m1)
+            uut2 = UserUats.findOrCreateByUserAndUatsAndMachinenName(uu,uas2,m1)
+            uut3 = UserUats.findOrCreateByUserAndUatsAndMachinenName(ua,uas1,m2)
+            [uut1,uut2,uut3].each { it.save(failOnError:true)}
+        }
 
     }
     def destroy = {

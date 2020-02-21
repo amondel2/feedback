@@ -17,6 +17,14 @@ environments {
 			username = user
 			url= dbString
 		}
+		dataSources{
+			lsmsName {
+				password = pass
+				dbCreate = "update"
+				username = user
+				url= dbString.replace('feedback',"lsmsName")
+			}
+		}
 	}
 	test {
 		dataSource {
@@ -25,7 +33,17 @@ environments {
 			dbCreate = "create-drop"
 			driverClassName = "org.h2.Driver"
 			dialect =  "org.hibernate.dialect.H2Dialect"
-//			url = "jdbc:h2:file:myDevDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+			url = "jdbc:h2:file:myDevDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+		}
+		dataSources{
+			lsmsName {
+				username = "sa"
+				password = ''
+				dbCreate = "create-drop"
+				driverClassName = "org.h2.Driver"
+				dialect =  "org.hibernate.dialect.H2Dialect"
+				url = "jdbc:h2:file:myDevDb;MVCC=TRUE;LOCK_TIMEOUT=10000;DB_CLOSE_ON_EXIT=FALSE"
+			}
 		}
 	}
 	production{
@@ -52,6 +70,33 @@ environments {
 				testOnReturn = false
 				jdbcInterceptors = "ConnectionState"
 				defaultTransactionIsolation= 2 // TRANSACTION_READ_COMMITTED
+			}
+		}
+		dataSources{
+			lsmsName {
+				password = pass
+				username = user
+				dbCreate = "none"
+				url= dbString.replace('feedback',"lsmsName")
+				properties {
+					jmxEnabled = true
+					initialSize = 5
+					maxActive = 50
+					minIdle = 5
+					maxIdle = 25
+					maxWait = 10000
+					maxAge = 600000
+					timeBetweenEvictionRunsMillis = 5000
+					minEvictableIdleTimeMillis = 60000
+					validationQuery = "SELECT 1"
+					validationQueryTimeout = 3
+					validationInterval = 15000
+					testOnBorrow = true
+					testWhileIdle= true
+					testOnReturn = false
+					jdbcInterceptors = "ConnectionState"
+					defaultTransactionIsolation= 2 // TRANSACTION_READ_COMMITTED
+				}
 			}
 		}
 	}

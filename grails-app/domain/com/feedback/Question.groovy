@@ -4,7 +4,7 @@ class Question extends GemericDomainObject  {
 
     static constraints = {
         questionType nullable: false
-        question nullable: false
+        question nullable: false, blank: false, minSize: 5
     }
 
     static mapping = {
