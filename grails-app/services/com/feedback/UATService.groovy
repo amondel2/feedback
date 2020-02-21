@@ -4,7 +4,7 @@ import grails.gorm.transactions.Transactional
 
 @Transactional
 class UATService {
-    def getUATsByUser(User user) {
+    def getActiveUATsByUser(User user) {
         def sdate = new Date()
         UserUats.withCriteria {
             eq("user", user)
@@ -15,8 +15,14 @@ class UATService {
                     isNull('endDate')
                 }
             }
+            ne("status",Status.Completed)
         }
     }
 
+    def getUATQuestions(User u,UATSession uats) {
+        uats.questions.sort('orderNumber').each { Question q -> }
+
+
+    }
 
 }

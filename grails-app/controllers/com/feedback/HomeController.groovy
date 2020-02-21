@@ -14,7 +14,7 @@ class HomeController {
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
     def getMyUats(){
-        def p = uatService.getUATsByUser(springSecurityService.getCurrentUser())
+        def p = uatService.getActiveUATsByUser(springSecurityService.getCurrentUser())
         withFormat {
             '*' {
                 render p as JSON
