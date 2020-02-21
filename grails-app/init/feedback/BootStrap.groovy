@@ -229,9 +229,9 @@ class BootStrap {
 
         UserUats uut1,uut2,uut3
         UserUats.withTransaction {
-            uut1 = UserUats.findOrCreateByUserAndUatsAndMachinenName(uu,uas1,m1)
-            uut2 = UserUats.findOrCreateByUserAndUatsAndMachinenName(uu,uas2,m1)
-            uut3 = UserUats.findOrCreateByUserAndUatsAndMachinenName(ua,uas1,m2)
+            uut1 = UserUats.findOrCreateByUserAndUatsAndMachinenName(uu,uas1,m1.machineName)
+            uut2 = UserUats.findOrCreateByUserAndUatsAndMachinenName(uu,uas2,m1.machineName)
+            uut3 = UserUats.findOrCreateByUserAndUatsAndMachinenName(ua,uas1,m2.machineName)
             [uut1,uut2,uut3].each { it.save(failOnError:true)}
         }
 

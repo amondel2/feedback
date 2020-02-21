@@ -5,6 +5,7 @@ class UserUats extends GemericDomainObject {
         User user
         UATSession uats
         String machinenName
+        Status status = Status.NotStarted
 
         static hasMany = [response:UserUATResponse]
         static belongsTo = [user:User,uats:UATSession]
@@ -12,6 +13,7 @@ class UserUats extends GemericDomainObject {
         static constraints = {
                 user unique: 'uats'
                 uats unique: 'user'
+                status nullable: false
                 machinenName nullable: false, blank: false
         }
 
