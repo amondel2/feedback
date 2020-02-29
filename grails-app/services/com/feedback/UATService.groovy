@@ -15,15 +15,15 @@ class UATService {
                     isNull('endDate')
                 }
             }
-            ne("status",Status.Completed)
-        }
+            ne("status", Status.Completed)
+        } as List<UserUats>
 
     }
 
-    UATSession getUatById(String uatId) {
+    UATSession findUatById(String uatId) {
         UATSession.withCriteria(uniqueResult: true) {
             eq('id',uatId)
-        }
+        } as UATSession
     }
 
     def getUatByUserAndUatSession(User u,UATSession uats) {
@@ -38,11 +38,53 @@ class UATService {
         }
     }
 
-    def getUATQuestions(User u,String uatId) {
-        getUATQuestions(u,getUatById(uatId))
+    def findAmswerInPramaas(params,id) {
+        params.quest?.find{ it.id == id }?.responses
     }
 
-    def getUATQuestions(User u,UATSession uats) {
+    def deleteAllRespomses(UserUats uuat,UATSessionQuestions q) {
+        UserUATResponse.where {
+            userUats == uuat
+            question == q
+        }.deleteAll()
+    }
+
+    def saveUATQuestions(User u,String uatId,params) {
+        def ret = []
+        UATSession uats = findUatById(uatId)
+        UserUats uuat = UserUats.withCriteria {
+            eq("user",u)
+            eq("uats",uats)
+        }?.get(0)
+
+        uats.questions.each { UATSessionQuestions q ->
+            //remove old responses
+            def t = 0
+            deleteAllRespomses(uuat,q)
+            findAmswerInPramaas(params,q.id)?.each {
+                UserUATResponse res = new UserUATResponse()
+                res.question = q
+                res.userUats = uuat
+                Answer a = Answer.findByQuestionAndId(q.questionId,it.toString())
+                if(a) {
+                    res.response = a
+                } else {
+                    res.textAnswer = it
+                }
+                res.save()
+                t++
+            }
+            ret.add([id:q.id,count:t])
+        }
+        ret
+
+    }
+
+    def myUATQuestions(User u, String uatId) {
+        myUATQuestions(u,findUatById(uatId))
+    }
+
+    def myUATQuestions(User u, UATSession uats) {
         UATCommand uatCmd = new UATCommand()
         uatCmd.title = uats.title
         uatCmd.id = uats.id
