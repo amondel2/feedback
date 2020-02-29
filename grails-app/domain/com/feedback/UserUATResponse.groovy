@@ -6,7 +6,6 @@ class UserUATResponse extends GemericDomainObject {
     UATSessionQuestions question
     Answer singleAnswer
     String textAnswer
-    String jsonAnswer
 
     static constraints = {
         singleAnswer nullable: true
@@ -16,7 +15,6 @@ class UserUATResponse extends GemericDomainObject {
 
     static mapping = {
         textAnswer type: 'text'
-        jsonAnswer type: 'text'
         id generator: 'assigned'
         version false
     }

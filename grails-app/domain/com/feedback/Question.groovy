@@ -16,6 +16,7 @@ class Question extends GemericDomainObject  {
 
     QuestionType questionType
     String question
+    Boolean isRequired = true
     Boolean requiresReset = false
 
 

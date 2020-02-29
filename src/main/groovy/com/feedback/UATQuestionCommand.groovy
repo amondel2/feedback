@@ -4,7 +4,10 @@ class UATQuestionCommand {
 
     String text
     String id
+    QuestionType type
+    Boolean isRequired
+    int orderNumber
     List<UATAnswerCommand> answers
-    List<UATResponseCommand> resonses
+    //List<UATResponseCommand> responses
 
 }

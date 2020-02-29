@@ -72,24 +72,24 @@ class BootStrap {
 
         UserBoss.withTransaction {
             UserBoss us = UserBoss.findOrCreateByBossAndEmployee(ua,uu)
-            us.save()
+            us.save(failOnError:true)
         }
 
         UserRole.withTransaction {
             UserRole ur = UserRole.findOrCreateByUserAndRole(uu,r1)
-            ur.save()
+            ur.save(failOnError:true)
             UserRole ur1 = UserRole.findOrCreateByUserAndRole(ua,r)
-            ur1.save()
+            ur1.save(failOnError:true)
             UserRole ur2 = UserRole.findOrCreateByUserAndRole(ua,r1)
-            ur2.save()
+            ur2.save(failOnError:true)
         }
 
         MName m1,m2
         MName.withTransaction {
             m1 = MName.findOrCreateByMachineNameAndUserName("7xder","aaron")
             m2 = MName.findOrCreateByMachineNameAndUserName("2x45612","admin")
-            m1.save()
-            m2.save()
+            m1.save(failOnError:true)
+            m2.save(failOnError:true)
         }
 
 
@@ -102,27 +102,27 @@ class BootStrap {
         Organization o7, o8
         Organization.withTransaction {
             o1 =  Organization.findOrCreateByName("Top")
-            o1.save()
+            o1.save(failOnError:true)
             o2 =  Organization.findOrCreateByName("Top_second")
-            o2.save()
+            o2.save(failOnError:true)
             o3 =  Organization.findOrCreateByName("MiddleTop")
             o3.parent = o1
-            o3.save()
+            o3.save(failOnError:true)
             o4 =  Organization.findOrCreateByName("MiddleTop_second")
             o4.parent = o1
-            o4.save()
+            o4.save(failOnError:true)
             o5 =  Organization.findOrCreateByName("TOP_second_Middle")
             o5.parent = o2
-            o5.save()
+            o5.save(failOnError:true)
             o6 =  Organization.findOrCreateByName("Bottom_TOP_Second")
             o6.parent = o3
-            o6.save()
+            o6.save(failOnError:true)
             o7 =  Organization.findOrCreateByName("MiddleTop_Bottom")
             o7.parent = o5
-            o7.save()
+            o7.save(failOnError:true)
             o8 =  Organization.findOrCreateByName("Bottom")
             o8.parent = o7
-            o8.save()
+            o8.save(failOnError:true)
         }
 
         Job superv,writter,actor
@@ -130,37 +130,37 @@ class BootStrap {
             superv = Job.findOrCreateByName("Supervisior")
             writter = Job.findOrCreateByName("Writter")
             actor = Job.findOrCreateByName("Actor")
-            superv.save()
-            writter.save()
-            actor.save()
+            superv.save(failOnError:true)
+            writter.save(failOnError:true)
+            actor.save(failOnError:true)
         }
 
         JobOrg t1Super,mtSupper,m4Supper, m4Writter, mtactor,m4topoemps
         JobOrg.withTransaction {
             t1Super = JobOrg.findOrCreateByOrgAndJob(o1,superv)
-            t1Super.save()
+            t1Super.save(failOnError:true)
             mtSupper = JobOrg.findOrCreateByOrgAndJob(o3,superv)
-            mtSupper.save()
+            mtSupper.save(failOnError:true)
             m4Supper =  JobOrg.findOrCreateByOrgAndJob(o8,superv)
-            m4Supper.save()
+            m4Supper.save(failOnError:true)
             m4Writter = JobOrg.findOrCreateByOrgAndJob(o8,writter)
-            m4Writter.save()
+            m4Writter.save(failOnError:true)
             m4topoemps = JobOrg.findOrCreateByOrgAndJob(o7,writter)
-            m4topoemps.save()
+            m4topoemps.save(failOnError:true)
             mtactor= JobOrg.findOrCreateByOrgAndJob(o3,actor)
-            mtactor.save()
+            mtactor.save(failOnError:true)
         }
 
         UserJob t1SuperJob,mtSupperJob,m4SuperJob,mtactorJob,m4WritterJob
         UserJob.withTransaction {
             t1SuperJob = UserJob.findOrCreateByUserAndJob(ua,t1Super)
-            t1SuperJob.save()
+            t1SuperJob.save(failOnError:true)
             mtSupperJob = UserJob.findOrCreateByUserAndJob(ua,mtSupper)
-            mtSupperJob.save()
+            mtSupperJob.save(failOnError:true)
             m4SuperJob = UserJob.findOrCreateByUserAndJob(ua,m4Supper)
-            m4SuperJob.save()
+            m4SuperJob.save(failOnError:true)
             mtactorJob = UserJob.findOrCreateByUserAndJob(uu,mtactor)
-            mtactorJob.save()
+            mtactorJob.save(failOnError:true)
             m4WritterJob = UserJob.findOrCreateByUserAndJob(uu,m4Writter)
             m4WritterJob.save(failOnError:true)
         }
@@ -232,7 +232,7 @@ class BootStrap {
             uut1 = UserUats.findOrCreateByUserAndUatsAndMachinenName(uu,uas1,m1.machineName)
             uut2 = UserUats.findOrCreateByUserAndUatsAndMachinenName(uu,uas2,m1.machineName)
             uut3 = UserUats.findOrCreateByUserAndUatsAndMachinenName(ua,uas1,m2.machineName)
-            [uut1,uut2,uut3].each { it.save(failOnError:true)}
+            [uut1,uut2,uut3].each { it.save(failOnError:true,flush:true)}
         }
 
     }

@@ -11,7 +11,7 @@ class UATSession extends GemericDomainObject {
         startDate nullable: false, validator: { Date val, UATSession obj ->
             Calendar gc  = new GregorianCalendar()
             gc.add(Calendar.DAY_OF_MONTH,-1)
-            return (val >=  gc.getTime() && ( obj?.endDate.equals(null) ||  obj?.endDate > val ))
+            return ( obj?.endDate.equals(null) ||  obj?.endDate > val )
         }
     }
 
