@@ -8,6 +8,6 @@ class UATQuestionCommand {
     Boolean isRequired
     int orderNumber
     List<UATAnswerCommand> answers
-    //List<UATResponseCommand> responses
+
 
 }
