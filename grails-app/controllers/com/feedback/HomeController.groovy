@@ -20,7 +20,7 @@ class HomeController {
             '*' {
                 render p.collect{ UserUats uat ->
                         UATSession t = uat.uats
-                        [title:t.title,startDate:t.startDate,endDAte:t.endDate,id:uat.id]
+                        [title:t.title,startDate:t.startDate,endDAte:t.endDate,id:t.id]
                 } as JSON
             }
         }

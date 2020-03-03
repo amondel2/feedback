@@ -23,7 +23,7 @@ class UATService {
     UATSession findUatById(String uatId) {
         UATSession.withCriteria(uniqueResult: true) {
             eq('id',uatId)
-        } as UATSession
+        }
     }
 
     def getUatByUserAndUatSession(User u,UATSession uats) {
@@ -65,7 +65,7 @@ class UATService {
                 UserUATResponse res = new UserUATResponse()
                 res.question = q
                 res.userUats = uuat
-                Answer a = Answer.findByQuestionAndId(q.questionId,it.toString())
+                Answer a = Answer.findByQuestionAndId(q.question,it.toString())
                 if(a) {
                     res.response = a
                 } else {
@@ -80,11 +80,23 @@ class UATService {
 
     }
 
-    def myUATQuestions(User u, String uatId) {
-        myUATQuestions(u,findUatById(uatId))
+    def getUatIssuesForUser (User u, String uatId) {
+        UATSession uats = findUatById(uatId)
+        Issue.withCriteria {
+            eq("uatSession",uats)
+            eq("employee",u)
+        }?.collect{ Issue myi ->
+            IssueCommand c = new IssueCommand()
+            c.issueDescription = myi.issueDescription
+            c.issueResponse = myi.issueResponse
+            c.issueType = myi.issueType
+            c.id = myi.id
+            c
+        }
     }
 
-    def myUATQuestions(User u, UATSession uats) {
+     def getUatQues(User u, String uatId) {
+        UATSession uats = findUatById(uatId)
         UATCommand uatCmd = new UATCommand()
         uatCmd.title = uats.title
         uatCmd.id = uats.id

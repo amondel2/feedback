@@ -1,6 +1,8 @@
 package feedback
 
 import com.feedback.Answer
+import com.feedback.Issue
+import com.feedback.IssueType
 import com.feedback.Program
 import com.feedback.UATSession
 import com.feedback.UATSessionQuestions
@@ -212,6 +214,11 @@ class BootStrap {
                 uas2.startDate = new Date()
             }
             [uas1, uas2].each { it.save(failOnError:true)}
+        }
+
+        Issue.withTransaction {
+            Issue is1 = Issue.findOrCreateByUatSessionAndEmployeeAndIssueTypeAndIssueDescription(uas1,uu, IssueType.Question,"Hello World")
+            is1.save(failOnError:true)
         }
 
         UATSessionQuestions uasq1,uasq2,uasq3,uasq4,uasq5,uasq6,uasq7,uasq8
