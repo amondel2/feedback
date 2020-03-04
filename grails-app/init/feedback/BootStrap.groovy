@@ -168,7 +168,7 @@ class BootStrap {
         }
         Question q1,q2,q3,q4,q5;
         Question.withTransaction {
-            q1 = Question.findOrCreateByQuestionAndQuestionType("Did You Execute a Save? ", QuestionType.BooleanYesNo)
+            q1 = Question.findOrCreateByQuestionAndQuestionType("Did You Execute a Save? ", QuestionType.BooleanPassFail)
             q2 = Question.findOrCreateByQuestionAndQuestionType("Please Add Any Additional Comments ", QuestionType.Open)
             q3 = Question.findOrCreateByQuestionAndQuestionType("Please Choose How Long you have used the software", QuestionType.MultiChoice)
             q4 = Question.findOrCreateByQuestionAndQuestionType("Please Rate the Software on Statisfaction", QuestionType.Likert)
@@ -176,8 +176,11 @@ class BootStrap {
             [q1,q2,q3,q4,q5].each { it.save(failOnError:true)}
         }
 
-        Answer a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13
+        Answer a14,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a15,a16
         Answer.withTransaction {
+            a15  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"Pass",1)
+            a16  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"Fail",1)
+            a14  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q2,"open",1)
             a1  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"Less than 3 months",1)
             a2  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"3-10 months",2)
             a3  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"10 months to 3 years",3)
@@ -191,7 +194,7 @@ class BootStrap {
             a11 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Onion Rings",2)
             a12 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Beer",3)
             a13 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Wings",4)
-            [a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13].each { it.save(failOnError:true)}
+            [a14,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a15,a16].each { it.save(failOnError:true)}
         }
 
         Program p1,p2,p3
