@@ -1,24 +1,24 @@
-if($("#getPeopleUnder").length > 0 ) {
+$.ajax({
+    url: window.fmBaseDir + 'getMyUats',
+    method: "GET",
+    cache: false
+}).done(function (data) {
+    if (data) {
+        processdate($("#UATS"),data,['Title','Program','Due Date'],['title','program','endDate'],"../UAT/initialize/");
+
+    } else {
+        alert(data[1]);
+    }
+});
+
+if($("#iandq").length > 0 ) {
     $.ajax({
-        url: window.fmBaseDir + 'getPeopleUnder',
+        url: window.fmBaseDir + 'getIssues?fut=10',
         method: "GET",
         cache: false
     }).done(function (data) {
-        if (data && data.msg) {
-            processdate($("#getPeopleUnder"),data.msg);
-
-        } else {
-            alert(data[1]);
-        }
-    });
-
-    $.ajax({
-        url: window.fmBaseDir + 'getPeopleUnder?fut=60',
-        method: "GET",
-        cache: false
-    }).done(function (data) {
-        if (data && data.msg) {
-            processdate($("#getPeopleUnder1"),data.msg);
+        if (data) {
+            processdate($("#iandq"), data,['Issue','UAT','Type','User'],['issue','uat','type','user'],"../issue/show/");
 
         } else {
             alert(data[1]);
@@ -26,47 +26,35 @@ if($("#getPeopleUnder").length > 0 ) {
     });
 }
 
-$.ajax({
-    url: window.fmBaseDir + 'getMyUats',
-    method: "GET",
-    cache: false
-}).done(function (data) {
-    if (data && data.msg) {
-        processdate($("#myGoalsOver"),data.msg);
-
-    } else {
-        alert(data[1]);
-    }
-});
-
-$.ajax({
-    url: window.fmBaseDir + 'getMyGoals?fut=60',
-    method: "GET",
-    cache: false
-}).done(function (data) {
-    if (data && data.msg) {
-        processdate($("#myGoalsComming"),data.msg);
-
-    } else {
-        alert(data[1]);
-    }
-});
-
-
-function processdate(elm,msg) {
+function processdate(elm,msg,head,elms,linkLoc) {
     if(msg.error) {
         elm.html(msg.error)
     } else {
         var id="tbl_" + elm.attr('id');
-        var tbl = '<table id="' +id +'"  class="table table-bordered table-striped"><thead class="thead-light"><th data-sortable="true">Employee</th><th data-sortable="true">Goal</th><th data-sortable="true">Due Date</th></thead><tbody>';
-        $.each(msg,function(index,value){
-            $.each(value,function(index1,val) {
-                tbl += "<tr><td>" + index + "</td><td>" + val.goal + "</td><td>" + val.due + "</td></tr>";
-            });
+        var tbl = '<table id="' +id +'"  class="table table-bordered table-striped"><thead class="thead-light">';
+        let x = "";
+        for(x of head) {
+            tbl +=  '<th data-sortable="true">' + x + '</th>';
+        }
+        tbl +=  '</thead><tbody>';
+        $.each(msg,function(index,val){
+            tbl += "<tr>";
+            let y = 0;
+            for(x of elms) {
+                tbl += "<td>";
+                if(y++ === 0 && val.id) {
+                    tbl += "<a href='"+ window.fmBaseDir + linkLoc + val.id + "'>"+  val[x] + "</a>";
+                } else {
+                    tbl +=  val[x]
+                }
+
+                tbl +=  "</td>";
+            }
+            tbl += "</tr>";
         });
         tbl += "</tbody></table>";
     }
-    elm.html(tbl)
+    elm.html(tbl);
 
     $("#" + id).tablesorter({
         theme : "bootstrap",

@@ -90,6 +90,16 @@ class UATService {
         }
     }
 
+    def getUatIssues (Boolean answered,maxRees) {
+        Issue.withCriteria {
+            if(!answered) {
+                isNull("issueResponse")
+            }
+            order('createDate','desc')
+            maxResults(maxRees)
+        }
+    }
+
      def getUatQues(User u, String uatId) {
         UATSession uats = findUatById(uatId)
         UATCommand uatCmd = new UATCommand()

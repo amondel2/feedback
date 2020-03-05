@@ -4,7 +4,7 @@ import grails.converters.JSON
 import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 
-@Secured(['ROLE_USER'])
+@Secured(['ROLE_ADMIN'])
 class ProjectManagerController extends MondelMapperUIController {
 
     SpringSecurityService springSecurityService

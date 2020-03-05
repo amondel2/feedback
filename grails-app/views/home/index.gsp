@@ -31,12 +31,13 @@
 <sec:ifLoggedIn>
     <h2>Dashboard</h2>
     <div>
-        <h3>New Ideas</h3>
-        <div id="newIdeas">Loading .. <asset:image src="spinner.gif" /></div>
+        <h3>UATS</h3>
+        <div id="UATS">Loading .. <asset:image src="spinner.gif" /></div>
 
-        <h3>My Ideas</h3>
-        <div id="myIdeas">Loading .. <asset:image src="spinner.gif" /></div>
-
+        <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UAT_ADMIN">
+        <h3>Issues & Questons</h3>
+        <div id="iandq">Loading .. <asset:image src="spinner.gif" /></div>
+        </sec:ifAnyGranted>
     </div>
 </sec:ifLoggedIn>
 <br>

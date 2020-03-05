@@ -7,6 +7,7 @@ class Issue extends GemericDomainObject {
         issueDescription nullable: false, blank: false
         parentIsssue nullable: true
         issueResponse nullable: true
+        createDate nullable: false
     }
 
     static mapping = {
@@ -24,6 +25,7 @@ class Issue extends GemericDomainObject {
     static hasMany = [duplicateIssues:Issue]
     static belongsTo = [uatSession:UATSession,parentIsssue:Issue,employee:User]
 
+    Date createDate = new Date()
     IssueType issueType
     UATSession uatSession
     String issueDescription

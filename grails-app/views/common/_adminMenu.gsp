@@ -1,3 +1,5 @@
+<li><a  class="nav-link" href="${request.contextPath}/projectManager/orgMapper">Manage My Org</a></li>
+<li><a  class="nav-link" href="${request.contextPath}/projectManager/">Manage My People</a></li>
 <li class="dropdown nav-item">
     <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#">Administration
         <span class="caret"></span></a>

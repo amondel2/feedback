@@ -9,7 +9,7 @@ class UATController {
 
     SpringSecurityService springSecurityService
     UATService UATService
-    def initalize() {
+    def initialize() {
         def res =  [msg : "success"]
         try {
             session["uatSession"] = [:]
