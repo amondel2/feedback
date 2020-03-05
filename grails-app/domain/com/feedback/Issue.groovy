@@ -16,6 +16,11 @@ class Issue extends GemericDomainObject {
         version false
     }
 
+    @Override
+    String toString() {
+        return issueDescription
+    }
+
     static hasMany = [duplicateIssues:Issue]
     static belongsTo = [uatSession:UATSession,parentIsssue:Issue,employee:User]
 

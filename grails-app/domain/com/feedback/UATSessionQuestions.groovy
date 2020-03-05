@@ -13,6 +13,11 @@ class UATSessionQuestions extends GemericDomainObject {
         session nullable: false
     }
 
+    @Override
+    String toString() {
+        return "${session.toString()} ${question.toString()}"
+    }
+
     static mapping = {
         id generator: 'assigned'
         version false

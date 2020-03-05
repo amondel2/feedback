@@ -12,6 +12,11 @@ class Question extends GemericDomainObject  {
         version false
     }
 
+    @Override
+    String toString() {
+        return question
+    }
+
     static hasMany = [answers:Answer,sessions:UATSessionQuestions]
 
     QuestionType questionType

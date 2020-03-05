@@ -20,25 +20,17 @@ class UATService {
 
     }
 
-    def findUserUatByUserAndUATSession(me,uats) {
-        new UserUats()
-    }
-
     UATSession findUatById(String uatId) {
         UATSession.withCriteria(uniqueResult: true) {
             eq('id',uatId)
         }
     }
 
-    def getUatByUserAndUatSession(User u,UATSession uats) {
-        UserUats.withCriteria {
-            eq("user",u.id)
-            eq("uats",uats)
+    def getUatByUserAndUatSession(User u,UATSession uat) {
+        UserUats.withCriteria(uniqueResult: true) {
+            eq("user",u)
+            eq("uats",uat)
             ne("status",Status.Completed)
-            or{
-                isNull("endDate")
-                le("endDate",new Date())
-            }
         }
     }
 
@@ -84,8 +76,7 @@ class UATService {
 
     }
 
-    def getUatIssuesForUser (User u, String uatId) {
-        UATSession uats = findUatById(uatId)
+    def getUatIssuesForUser (User u, UATSession uats) {
         Issue.withCriteria {
             eq("uatSession",uats)
             eq("employee",u)
@@ -138,6 +129,7 @@ class UATService {
             }
             uatCmd.questions.add(quest)
         }
+        uatCmd.issues = getUatIssuesForUser(u,uats)
         uatCmd
 
     }

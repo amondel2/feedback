@@ -26,6 +26,7 @@ class BootStrap {
         Role r
         Role r1
         Role r2
+
         Role.withTransaction {
             r = Role.findOrCreateByAuthority("ROLE_ADMIN")
             r.save(failOnError: true)
@@ -36,7 +37,7 @@ class BootStrap {
         }
 
         User ua
-        User uu
+        User uu,ur
         User.withTransaction {
             ua = User.findByUsername("admin")
             if (!ua) {
@@ -70,6 +71,22 @@ class BootStrap {
                 uu.email = "amondelblatt@foo.com"
                 uu.save(failOnError: true)
             }
+
+            ur = User.findByUsername("rachel")
+            if(!ur) {
+                ur = new User()
+                ur.username = "rachel"
+                ur.password = pass
+                ur.firstName = "Rachel"
+                ur.lastName = "UATADMIN"
+                ur.employeeId = "1312213"
+                ur.enabled = true
+                ur.hireDate = new Date()
+                ur.accountExpired = false
+                ur.accountExpired = false
+                ur.email = "rachell@foo.com"
+                ur.save(failOnError: true)
+            }
         }
 
         UserBoss.withTransaction {
@@ -78,12 +95,14 @@ class BootStrap {
         }
 
         UserRole.withTransaction {
-            UserRole ur = UserRole.findOrCreateByUserAndRole(uu,r1)
-            ur.save(failOnError:true)
+            UserRole urr = UserRole.findOrCreateByUserAndRole(uu,r1)
+            urr.save(failOnError:true)
             UserRole ur1 = UserRole.findOrCreateByUserAndRole(ua,r)
             ur1.save(failOnError:true)
             UserRole ur2 = UserRole.findOrCreateByUserAndRole(ua,r1)
             ur2.save(failOnError:true)
+            UserRole ur3 = UserRole.findOrCreateByUserAndRole(ur,r2)
+            ur3.save(failOnError:true)
         }
 
         MName m1,m2
@@ -176,11 +195,12 @@ class BootStrap {
             [q1,q2,q3,q4,q5].each { it.save(failOnError:true)}
         }
 
-        Answer a14,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a15,a16
+        Answer a14,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a15,a16,a17
         Answer.withTransaction {
             a15  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"Pass",1)
-            a16  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"Fail",1)
-            a14  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q2,"open",1)
+            a16  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"Fail",2)
+            a17  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"NA",3)
+            a14  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q2,"Please Enter Comments",1)
             a1  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"Less than 3 months",1)
             a2  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"3-10 months",2)
             a3  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"10 months to 3 years",3)
@@ -194,7 +214,7 @@ class BootStrap {
             a11 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Onion Rings",2)
             a12 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Beer",3)
             a13 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Wings",4)
-            [a14,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a15,a16].each { it.save(failOnError:true)}
+            [a14,a1,a2,a3,a4,a5,a6,a7,a8,a9,a10,a11,a12,a13,a15,a16,a17].each { it.save(failOnError:true)}
         }
 
         Program p1,p2,p3

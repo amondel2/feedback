@@ -17,6 +17,11 @@ class UserUats extends GemericDomainObject {
                 machinenName nullable: false, blank: false
         }
 
+        @Override
+        String toString() {
+                return "${user.toString()} ${uats.toString()}"
+        }
+
         static mapping = {
                 id generator: 'assigned'
                 version false

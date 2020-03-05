@@ -13,6 +13,11 @@ class Answer extends GemericDomainObject {
         version false
     }
 
+    @Override
+    String toString() {
+        return answer
+    }
+
     static belongsTo = [question:Question]
 
     String answer

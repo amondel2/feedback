@@ -19,7 +19,7 @@ class UATController {
                 throw new Exception("UAT SESSION NOT FOUND")
             }
             User me = springSecurityService.getCurrentUser()
-            if(!(UATService.findUserUatByUserAndUATSession(me,uats) instanceof UserUats)){
+            if(!(UATService.getUatByUserAndUatSession(me,uats) instanceof UserUats)){
                 throw new Exception("UAT User Not Test Access")
             }
             //Make sure it exists and this user has access
@@ -36,8 +36,7 @@ class UATController {
         def res = [:]
         try {
             if (session["uatSession"]?.uatId) {
-                res.questions = UATService.getUatQues(springSecurityService.getCurrentUser(), session["uatSession"].uatId)
-                res.issues = UATService.getUatIssuesForUser(springSecurityService.getCurrentUser(), session["uatSession"].uatId)
+                res = UATService.getUatQues(springSecurityService.getCurrentUser(), session["uatSession"].uatId)
             } else {
                 res = session["uatSession"]
             }

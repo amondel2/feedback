@@ -24,6 +24,11 @@ class User extends GemericDomainObject {
     Date endDate
     Boolean manager = false
 
+    @Override
+    String toString() {
+        getFullName()
+    }
+
 
     String getFullName(){
         "${this.firstName} ${this.lastName}"

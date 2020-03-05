@@ -13,6 +13,11 @@ class Program extends  GemericDomainObject {
 
     static hasMany = [uatSessions:UATSession]
 
+    @Override
+    String toString() {
+        return name
+    }
+
     String name
 
 }
