@@ -20,6 +20,10 @@ class UATService {
 
     }
 
+    def findUserUatByUserAndUATSession(me,uats) {
+        true
+    }
+
     UATSession findUatById(String uatId) {
         UATSession.withCriteria(uniqueResult: true) {
             eq('id',uatId)
