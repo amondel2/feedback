@@ -21,7 +21,7 @@ class UATService {
     }
 
     def findUserUatByUserAndUATSession(me,uats) {
-        true
+        new UserUats()
     }
 
     UATSession findUatById(String uatId) {
