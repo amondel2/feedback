@@ -47,7 +47,7 @@
     </div>
 
     <h3>Get Answers to Questions</h3>
-     <button id="myquestions" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Ask A New Question" data-type="Question">Ask A New Question</button>
+     <button id="myquestions" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Ask A New Question" data-label="Enter Your Question" data-type="Question">Ask A New Question</button>
         <div class="accordion" id="questfrm">
             <g:each in="${res.issuesQuestions}" var="q" status="i">
                 <div class="card">
@@ -68,7 +68,7 @@
         </div>
 
     <h3>Report an a Issue</h3>
-    <button id="myissues" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Report A New Issue" data-type="Problem">Report A New Issue</button>
+    <button id="myissues" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Report A New Issue" data-label="Describe Your Issue" data-type="Problem">Report A New Issue</button>
     <div class="accordion" id="issuefrm">
         <g:each in="${res.issuesProblems}" var="q" status="i">
             <div class="card">
@@ -106,7 +106,7 @@
                     <form id="newIssueFrm">
                         <input type="hidden" id="issueType" name="issueType" value="" />
                         <div class="form-group">
-                            <label for="issue-text" class="col-form-label">Describe Your Problem</label>
+                            <label for="issue-text" id="islbl" class="col-form-label"></label>
                             <textarea class="form-control" spellcheck="true" required placeholder="Describe You Issue" name="issueDescription" id="issue-text"></textarea>
                         </div>
                     </form>

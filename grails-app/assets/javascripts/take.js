@@ -1,7 +1,9 @@
 $('#issueModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     $("#issueType").val(button.data('type'));
+    $("#islbl").text(button.data('label'));
     $("#issue-text").val("");
+    $("#issue-text").attr('placeholder',button.data('label'))
     $(this).find('.modal-title').text(button.data('title'));
 });
 
