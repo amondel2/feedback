@@ -92,6 +92,8 @@ class BootStrap {
         UserBoss.withTransaction {
             UserBoss us = UserBoss.findOrCreateByBossAndEmployee(ua,uu)
             us.save(failOnError:true)
+            UserBoss usur = UserBoss.findOrCreateByBossAndEmployee(ua,ur)
+            usur.save(failOnError:true)
         }
 
         UserRole.withTransaction {
@@ -146,17 +148,19 @@ class BootStrap {
             o8.save(failOnError:true)
         }
 
-        Job superv,writter,actor
+        Job superv,writter,actor,admin
         Job.withTransaction {
             superv = Job.findOrCreateByName("Supervisior")
             writter = Job.findOrCreateByName("Writter")
             actor = Job.findOrCreateByName("Actor")
+            admin = Job.findOrCreateByName("UAT Admin")
             superv.save(failOnError:true)
             writter.save(failOnError:true)
             actor.save(failOnError:true)
+            admin.save(failOnError:true)
         }
 
-        JobOrg t1Super,mtSupper,m4Supper, m4Writter, mtactor,m4topoemps
+        JobOrg t1Super,mtSupper,m4Supper, m4Writter, mtactor,m4topoemps,mtactor2
         JobOrg.withTransaction {
             t1Super = JobOrg.findOrCreateByOrgAndJob(o1,superv)
             t1Super.save(failOnError:true)
@@ -170,9 +174,11 @@ class BootStrap {
             m4topoemps.save(failOnError:true)
             mtactor= JobOrg.findOrCreateByOrgAndJob(o3,actor)
             mtactor.save(failOnError:true)
+            mtactor2 = JobOrg.findOrCreateByOrgAndJob(o3,admin)
+            mtactor2.save(failOnError:true)
         }
 
-        UserJob t1SuperJob,mtSupperJob,m4SuperJob,mtactorJob,m4WritterJob
+        UserJob t1SuperJob,mtSupperJob,m4SuperJob,mtactorJob,m4WritterJob,m4Wadmin2Job
         UserJob.withTransaction {
             t1SuperJob = UserJob.findOrCreateByUserAndJob(ua,t1Super)
             t1SuperJob.save(failOnError:true)
@@ -184,6 +190,8 @@ class BootStrap {
             mtactorJob.save(failOnError:true)
             m4WritterJob = UserJob.findOrCreateByUserAndJob(uu,m4Writter)
             m4WritterJob.save(failOnError:true)
+            m4Wadmin2Job = UserJob.findOrCreateByUserAndJob(ur,mtactor2)
+            m4Wadmin2Job.save(failOnError:true)
         }
         Question q1,q2,q3,q4,q5;
         Question.withTransaction {

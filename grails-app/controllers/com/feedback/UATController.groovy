@@ -28,7 +28,14 @@ class UATController {
             res = [msg:e.getMessage(),st:e.getStackTrace(),ses:session["uatSession"]]
         }
         withFormat {
-            '*' { render res as JSON }
+            json { render res as JSON }
+            '*' {
+                if(res.msg == "success") {
+                    redirect(action:"myQuestionAndAnswers")
+                } else {
+                    render res as JSON
+                }
+            }
         }
     }
 
@@ -44,7 +51,8 @@ class UATController {
             res = [msg:e.getMessage(),st:e.getStackTrace(),ses:session["uatSession"]]
         }
         withFormat {
-            '*' { render res as JSON }
+            json { render res as JSON  }
+            '*' { render(view: "index", model: [res:res]) }
         }
     }
 
