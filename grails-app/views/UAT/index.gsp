@@ -44,7 +44,7 @@
     </div>
 
     <h3>Get Answers to Questions</h3>
-     <button id="myquestions" class="btn-secondary btn">Ask A New Question</button>
+     <button id="myquestions" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Ask A New Question" data-type="Question">Ask A New Question</button>
         <div class="accordion" id="questfrm">
             <g:each in="${res.issuesQuestions}" var="q" status="i">
                 <div class="card">
@@ -65,7 +65,7 @@
         </div>
 
     <h3>Report an a Issue</h3>
-    <button id="myissues" class="btn-secondary btn">Report A New Issue</button>
+    <button id="myissues" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Report A New Issue" data-type="Problem">Report A New Issue</button>
     <div class="accordion" id="issuefrm">
         <g:each in="${res.issuesProblems}" var="q" status="i">
             <div class="card">
@@ -89,5 +89,32 @@
         <button class="btn btn-primary">Complete</button>
         <button class="btn btn-secondary">Save for Later</button>
     </div>
+
+    <div class="modal fade" id="issueModal" tabindex="-1" role="dialog" aria-labelledby="issueModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="issueModalLabel">Create An Issue</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <input type="hidden" id="issueType" name="issueType" value="" />
+                        <div class="form-group">
+                            <label for="issue-text" class="col-form-label">Describe Your Problem</label>
+                            <textarea class="form-control" spellcheck="true" required placeholder="Describe You Issue" id="issue-text"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <asset:javascript src="take.js" />
 </body>
 </html>
