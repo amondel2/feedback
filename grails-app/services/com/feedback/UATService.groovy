@@ -4,6 +4,8 @@ import grails.gorm.transactions.Transactional
 
 @Transactional
 class UATService {
+    IssueService issueService
+
     List<UserUats> getActiveUATsByUser(User user) {
         def sdate = new Date()
         UserUats.withCriteria {
@@ -17,7 +19,6 @@ class UATService {
             }
             ne("status", Status.Completed)
         } as List<UserUats>
-
     }
 
     UATSession findUatById(String uatId) {
@@ -73,31 +74,6 @@ class UATService {
             ret.add([id:q.id,count:t])
         }
         ret
-
-    }
-
-    def getUatIssuesForUser (User u, UATSession uats) {
-        Issue.withCriteria {
-            eq("uatSession",uats)
-            eq("employee",u)
-        }?.collect{ Issue myi ->
-            IssueCommand c = new IssueCommand()
-            c.issueDescription = myi.issueDescription
-            c.issueResponse = myi.issueResponse
-            c.issueType = myi.issueType
-            c.id = myi.id
-            c
-        }
-    }
-
-    def getUatIssues (Boolean answered,maxRees) {
-        Issue.withCriteria {
-            if(!answered) {
-                isNull("issueResponse")
-            }
-            order('createDate','desc')
-            maxResults(maxRees)
-        }
     }
 
      def getUatQues(User u, String uatId) {
@@ -139,11 +115,7 @@ class UATService {
             }
             uatCmd.questions.add(quest)
         }
-        uatCmd.issues = getUatIssuesForUser(u,uats)
+        uatCmd.issues = issueService.getUatIssuesForUser(u,uats)
         uatCmd
-
     }
-
-
-
 }

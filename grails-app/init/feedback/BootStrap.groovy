@@ -187,7 +187,7 @@ class BootStrap {
         }
         Question q1,q2,q3,q4,q5;
         Question.withTransaction {
-            q1 = Question.findOrCreateByQuestionAndQuestionType("Did You Execute a Save? ", QuestionType.BooleanPassFail)
+            q1 = Question.findOrCreateByQuestionAndQuestionType("Did You Execute a Save? ", QuestionType.MultiChoice)
             q2 = Question.findOrCreateByQuestionAndQuestionType("Please Add Any Additional Comments ", QuestionType.Open)
             q3 = Question.findOrCreateByQuestionAndQuestionType("Please Choose How Long you have used the software", QuestionType.MultiChoice)
             q4 = Question.findOrCreateByQuestionAndQuestionType("Please Rate the Software on Statisfaction", QuestionType.Likert)

@@ -10,6 +10,7 @@ class HomeController {
 
     @Autowired
     UATService uatService
+    IssueService issueService
     SpringSecurityService springSecurityService
 
     @Secured(['IS_AUTHENTICATED_FULLY'])
@@ -22,7 +23,6 @@ class HomeController {
         res.sort{a,b -> a.endDate <=> b.endDate}
         withFormat {
             '*' {
-
                 render res as JSON
             }
         }
@@ -30,13 +30,12 @@ class HomeController {
 
     @Secured(['ROLE_ADMIN','ROLE_UAT_ADMIN'])
     def getIssues() {
-        List<Issue> p = uatService.getUatIssues(false,Integer.valueOf(params.fut.toString()))
+        List<Issue> p = issueService.getUatIssues(false,Integer.valueOf(params.fut.toString()))
         def res = p.collect{ Issue is ->
             [issue:is.issueDescription,uat:is.uatSession.toString(),type:is.issueType.toString(),id:is.id,user:is.employee.toString()]
         }
         withFormat {
             '*' {
-
                 render res as JSON
             }
         }
