@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<h1>Idea Submission</h1>
+<h1>UAT FeedBack Tool</h1>
 <p class="lead">
 <g:if test='${flash.message}'>
     <div class='login_message'>${flash.message}</div>

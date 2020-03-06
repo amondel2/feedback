@@ -49,10 +49,8 @@ class UATService {
     def saveUATQuestions(User u,String uatId,params) {
         def ret = []
         UATSession uats = findUatById(uatId)
-        UserUats uuat = UserUats.withCriteria {
-            eq("user",u)
-            eq("uats",uats)
-        }?.get(0)
+        UserUats uuat = getUatByUserAndUatSession(u,uats)
+
 
         uats.questions.each { UATSessionQuestions q ->
             //remove old responses
@@ -76,20 +74,28 @@ class UATService {
         ret
     }
 
+    ProgramVersion getUatVersionNumber(UATSession uat) {
+        ProgramVersion.withCriteria {
+            eq("uatSession",uat)
+            isNull("passed")
+            order('createDate','desc')
+        }?.get(0)
+    }
+
      def getUatQues(User u, String uatId) {
         UATSession uats = findUatById(uatId)
         UATCommand uatCmd = new UATCommand()
+         ProgramVersion pv = getUatVersionNumber(uats)
         uatCmd.title = uats.title
         uatCmd.id = uats.id
+        uatCmd.appName = pv.program.toString()
+        uatCmd.versionNumber =  pv?.versionNumber
         uatCmd.startDate = uats.startDate
         uatCmd.endDate = uats.endDate
         uatCmd.questions = []
         UATQuestionCommand quest
         UATAnswerCommand quest_ans
-        UserUats uuat = UserUats.withCriteria {
-            eq("user",u)
-            eq("uats",uats)
-        }?.get(0)
+        UserUats uuat = getUatByUserAndUatSession(u,uats)
         uats.questions.sort{a,b -> a.orderNumber <=> b.orderNumber}.each { UATSessionQuestions q ->
             quest = new UATQuestionCommand()
             quest.id = q.id

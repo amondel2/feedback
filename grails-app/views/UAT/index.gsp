@@ -7,9 +7,12 @@
 <head>
     <meta name="layout" content="basic"/>
     <title>${res.title}</title>
+    <script>
+        fmBaseDir = '${request.contextPath}/${controllerName}/';
+    </script>
 </head>
 <body>
-    <h1>${res.title}</h1>
+    <h1>${res.title} for ${res.appName} - ${res.versionNumber}</h1>
     <div class="accordion" id="mainfrm">
         <g:each in="${res.questions}" var="q" status="i">
             <div class="card">
@@ -100,17 +103,17 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="newIssueFrm">
                         <input type="hidden" id="issueType" name="issueType" value="" />
                         <div class="form-group">
                             <label for="issue-text" class="col-form-label">Describe Your Problem</label>
-                            <textarea class="form-control" spellcheck="true" required placeholder="Describe You Issue" id="issue-text"></textarea>
+                            <textarea class="form-control" spellcheck="true" required placeholder="Describe You Issue" name="issueDescription" id="issue-text"></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Create</button>
+                    <button type="button" id="issueCreateBtn" class="btn btn-primary">Create</button>
                 </div>
             </div>
         </div>

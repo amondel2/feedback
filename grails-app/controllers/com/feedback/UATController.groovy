@@ -9,6 +9,8 @@ class UATController {
 
     SpringSecurityService springSecurityService
     UATService UATService
+    IssueService issueService
+
     def initialize() {
         def res =  [msg : "success"]
         try {
@@ -66,6 +68,23 @@ class UATController {
             res = UATService.saveUATQuestions(springSecurityService.getCurrentUser(), session["uatSession"].uatId, params)
         } catch (Exception e) {
             res = [msg:e.getMessage(),st:e.getStackTrace(),ses:session["uatSession"]]
+        }
+        withFormat {
+            '*' { render res as JSON }
+        }
+    }
+
+    def createNewIssue() {
+        def res = [msg : "success"]
+        def er
+        try {
+            er = issueService.saveIssue(params,UATService.findUatById(session["uatSession"]['uatId']))
+            if(! er instanceof Issue) {
+                throw new Exception(er.toString())
+            }
+            res.id = er.id
+        } catch (Exception e) {
+            res = [msg:e.getMessage(),st:e.getStackTrace()]
         }
         withFormat {
             '*' { render res as JSON }

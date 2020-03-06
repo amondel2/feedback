@@ -6,6 +6,8 @@ class UATCommand {
     List<IssueCommand> issuesQuestions
     String id
     String title
+    String appName
+    String versionNumber
     Date startDate
     Date endDate
 

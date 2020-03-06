@@ -4,6 +4,7 @@ import com.feedback.Answer
 import com.feedback.Issue
 import com.feedback.IssueType
 import com.feedback.Program
+import com.feedback.ProgramVersion
 import com.feedback.UATSession
 import com.feedback.UATSessionQuestions
 import com.feedback.UserUats
@@ -234,6 +235,7 @@ class BootStrap {
         }
 
 
+
         UATSession uas1, uas2
         UATSession.withTransaction {
             uas1 = UATSession.findOrCreateByTitleAndProgram("Test Foo UAT",p1)
@@ -245,6 +247,16 @@ class BootStrap {
                 uas2.startDate = new Date()
             }
             [uas1, uas2].each { it.save(failOnError:true)}
+        }
+
+        ProgramVersion pv1,pv2,pv3,pv4
+        ProgramVersion.withTransaction {
+            pv1 = ProgramVersion.findOrCreateByProgramAndVersionNumberAndPassedAndUatSession(p1,"1.2.3",true,uas1)
+            pv2 = ProgramVersion.findOrCreateByProgramAndVersionNumberAndUatSession(p1,"1.2.4",uas1)
+            sleep(100)
+            pv3 = ProgramVersion.findOrCreateByProgramAndVersionNumberAndUatSession(p1,"1.2.5",uas1)
+            pv4 = ProgramVersion.findOrCreateByProgramAndVersionNumberAndUatSession(p2,"1.03.2",uas2)
+            [pv1,pv2,pv3,pv4].each { it.save(failOnError:true)}
         }
 
         Issue.withTransaction {

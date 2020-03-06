@@ -11,7 +11,7 @@ class Program extends  GemericDomainObject {
         version false
     }
 
-    static hasMany = [uatSessions:UATSession]
+    static hasMany = [uatSessions:UATSession,versions:ProgramVersion]
 
     @Override
     String toString() {
