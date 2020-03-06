@@ -115,7 +115,8 @@ class UATService {
             }
             uatCmd.questions.add(quest)
         }
-        uatCmd.issues = issueService.getUatIssuesForUser(u,uats)
+        uatCmd.issuesProblems = issueService.getUatIssuesForUser(u,uats,IssueType.Problem)
+        uatCmd.issuesQuestions = issueService.getUatIssuesForUser(u,uats,IssueType.Question)
         uatCmd
     }
 }

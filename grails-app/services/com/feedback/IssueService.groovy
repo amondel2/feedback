@@ -25,10 +25,11 @@ class IssueService {
     }
 
     @CompileStatic
-    List<IssueCommand> getUatIssuesForUser (User u, UATSession uats) {
+    List<IssueCommand> getUatIssuesForUser (User u, UATSession uats,IssueType ist) {
         Issue.withCriteria {
             eq("uatSession",uats)
             eq("employee",u)
+            eq("issueType",ist)
         }?.collect{ Issue myi ->
             IssueCommand c = new IssueCommand()
             c.issueDescription = myi.issueDescription

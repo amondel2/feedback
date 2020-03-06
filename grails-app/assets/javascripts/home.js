@@ -18,7 +18,7 @@ if($("#iandq").length > 0 ) {
         cache: false
     }).done(function (data) {
         if (data) {
-            processdate($("#iandq"), data,['Issue','UAT','Type','User'],['issue','uat','type','user'],"../issue/show/");
+            processdate($("#iandq"), data,['Issue','UAT','Type','User'],['issue','uat','type','user'],"../issue/edit/");
 
         } else {
             alert(data[1]);
