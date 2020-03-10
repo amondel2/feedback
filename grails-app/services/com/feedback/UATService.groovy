@@ -36,7 +36,9 @@ class UATService {
     }
 
     def findAmswerInPramaas(params,id) {
-        params.quest?.find{ it.id == id }?.responses
+        params?.findAll{
+            it.key == id
+        }
     }
 
     def deleteAllRespomses(UserUats uuat,UATSessionQuestions q) {
@@ -60,13 +62,13 @@ class UATService {
                 UserUATResponse res = new UserUATResponse()
                 res.question = q
                 res.userUats = uuat
-                Answer a = Answer.findByQuestionAndId(q.question,it.toString())
+                Answer a = Answer.findByQuestionAndId(q.question,it.value.toString())
                 if(a) {
-                    res.response = a
+                    res.singleAnswer = a
                 } else {
-                    res.textAnswer = it
+                    res.textAnswer = it.value
                 }
-                res.save()
+                res.save(failOnError:true)
                 t++
             }
             ret.add([id:q.id,count:t])

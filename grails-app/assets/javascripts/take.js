@@ -1,3 +1,11 @@
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds))
+};
+
+$(window).on('beforeunload',function(){
+    return "Are you sure you want to leave this page? Any unsaved information will be lost!";
+});
+
 $('#issueModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     $("#issueType").val(button.data('type'));
@@ -50,4 +58,55 @@ function createIPQ(id,text,bodyId,headId,frm) {
             </div>
         </div>`;
     $("#" + frm).append(elm);
+}
+
+$("#save-btn").on("click",{type:"Save" },subanswers);
+
+function getFormKeys() {
+    let myName ={};
+    $("#ansFrm").find("input,textarea,select").map(function() {
+        myName[this.name] = 1;
+    });
+    return Object.keys(myName);
+}
+
+function subanswers(event) {
+    let status = event.data.type;
+    try {
+        if($("#ansFrm")[0].checkValidity()) {
+
+            $.ajax({
+                url: window.fmBaseDir + 'saveQandRes?st=' + status,
+                method: "POST",
+                data: $("#ansFrm").serialize(),
+                cache: false
+            }).done(function (data) {
+                if (!data.msg) {
+                        $('#msg').html("You made a great Save!");
+                } else {
+                    alert(data.msg);
+                }
+            });
+        } else {
+            let j = 0;
+            let ourKeys = getFormKeys();
+            let ksize = ourKeys.length;
+            let found = false;
+            while(j < ksize && !found) {
+                let v = ourKeys[j++];
+                if( !$("[name='"+ v +"']")[0].validity.valid) {
+                    let p =  $("[name='"+ v +"']").parentsUntil("[data-parent='#mainfrm']").parent();
+                    $(p).on("shown.bs.collapse",function() {
+                        $("[name='"+ v +"']")[0].reportValidity();
+                        $(p).off("shown.bs.collapse");
+                    });
+                    $("[name='"+ v +"']")[0].reportValidity();
+                    $(p).collapse('show');
+                    found = true;
+                }
+            }
+        }
+    } catch (err) {
+
+    }
 }

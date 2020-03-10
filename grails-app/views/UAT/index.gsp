@@ -13,7 +13,9 @@
 </head>
 <body>
     <h1>${res.title} for ${res.appName} - ${res.versionNumber}</h1>
+    <div class="message" id="msg" role="status">${flash.message}</div>
     <div class="accordion" id="mainfrm">
+        <form name="ansFrm" id="ansFrm" method="post" onsubmit="return false;">
         <g:each in="${res.questions}" var="q" status="i">
             <div class="card">
                 <div class="card-header" id="qhead${i}">
@@ -44,6 +46,7 @@
                 </div>
             </div>
         </g:each>
+        </form>
     </div>
 
     <h3>Get Answers to Questions</h3>
@@ -89,8 +92,8 @@
     </div>
 
     <div class="m-3">
-        <button class="btn btn-primary">Complete</button>
-        <button class="btn btn-secondary">Save for Later</button>
+        <button id="complete-btn" data-type="Complete" class="btn btn-primary">Complete</button>
+        <button  id="save-btn" data-type="Save" class="btn btn-secondary">Save for Later</button>
     </div>
 
     <div class="modal fade" id="issueModal" tabindex="-1" role="dialog" aria-labelledby="issueModalLabel" aria-hidden="true">

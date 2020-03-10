@@ -9,6 +9,7 @@ class UserUATResponse extends GemericDomainObject {
 
     static constraints = {
         singleAnswer nullable: true
+        textAnswer nullable: true
         question nullable: false, unique: ['userUats']
         userUats nullable: false, unique: ['question']
     }

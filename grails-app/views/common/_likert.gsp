@@ -10,7 +10,7 @@
         <tbody>
         <tr class="centered align-content-center">
         <g:each in="${q.answers}" var="a">
-            <td class="centered"> <input id="a${a.id}" <g:if test="${q.isRequired}"> required </g:if>  class="custom-radio" type="radio" name="${q.id}" value="${a.id}" <g:if test="${a.id == a.response}"> selected="selected"</g:if> /></td>
+            <td class="centered"> <input id="a${a.id}" <g:if test="${q.isRequired}"> required </g:if>  class="custom-radio" type="radio" name="${q.id}" value="${a.id}" <g:if test="${a.id == a.response}"> checked="checked"</g:if> /></td>
         </g:each>
         </tr>
         </tbody>
