@@ -16,10 +16,17 @@ $("#issueCreateBtn").on('click',function () {
             cache: false
         }).done(function (data) {
             if (data.msg == "success") {
-                if( $("#issueType").val() == "Problem")
-                    createIP(data.id,$("#issue-text").val());
-                else
-                    createIQ(data.id,$("#issue-text").val());
+                var headId,bodyId,frmn;
+                if( $("#issueType").val() == "Problem") {
+                    bodyId = "ip";
+                    headId = "iphead";
+                    frmn = "issuefrm";
+                } else {
+                    bodyId = "iq";
+                    headId = "iqhead";
+                    frmn = "questfrm";
+                }
+                createIPQ(data.id,$("#issue-text").val(),bodyId + data.id,headId + data.id,frmn);
                 $('#issueModal').modal('hide');
             } else {
                 alert(data.msg);
@@ -28,36 +35,19 @@ $("#issueCreateBtn").on('click',function () {
     }
 });
 
-function createIQ(id,text) {
+function createIPQ(id,text,bodyId,headId,frm) {
     let elm = `<div class="card">
-            <div class="card-header" id="iqhead${id}">
+            <div class="card-header" id="${headId}">
                  <h2 class="mb-0">
-                    <button class="btn btn-link collapsed text-truncate" type="button" data-toggle="collapse" data-target="#iq${id}" aria-expanded="false" aria-controls="iq${id}">
+                    <button class="btn btn-link collapsed text-truncate" type="button" data-toggle="collapse" data-target="#${bodyId}" aria-expanded="false" aria-controls="${bodyId}">
                          ${text}
                         </button>
                 </h2>
             </div>
-            <div id="iq${id}" class="collapse" aria-labelledby="iqhead${id}" data-parent="#questfrm">
+            <div id="${bodyId}" class="collapse" aria-labelledby="${headId}" data-parent="#questfrm">
                 <div class="card-body">
                 </div>
             </div>
         </div>`;
-    $("#questfrm").append(elm);
-}
-
-function createIP(id,text) {
-    let elm = `<div class="card">
-            <div class="card-header" id="iphead${id}">
-                 <h2 class="mb-0">
-                    <button class="btn btn-link collapsed text-truncate" type="button" data-toggle="collapse" data-target="#ip${id}" aria-expanded="false" aria-controls="ip${id}">
-                         ${text}
-                        </button>
-                </h2>
-            </div>
-            <div id="ip${id}" class="collapse" aria-labelledby="iphead${id}" data-parent="#issuefrm">
-                <div class="card-body">
-                </div>
-            </div>
-        </div>`;
-    $("#issuefrm").append(elm);
+    $("#" + frm).append(elm);
 }
