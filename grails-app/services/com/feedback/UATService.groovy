@@ -1,6 +1,7 @@
 package com.feedback
 
 import grails.gorm.transactions.Transactional
+import groovy.transform.CompileStatic
 
 @Transactional
 class UATService {
@@ -21,17 +22,37 @@ class UATService {
         } as List<UserUats>
     }
 
+    List<UATSession> getActiveUATs() {
+        def sdate = new Date()
+        UATSession.withCriteria {
+            le('startDate', sdate)
+            or {
+                ge('endDate', sdate)
+                isNull('endDate')
+            }
+        } as List<UATSession>
+    }
+
     UATSession findUatById(String uatId) {
         UATSession.withCriteria(uniqueResult: true) {
             eq('id',uatId)
         }
     }
 
-    def getUatByUserAndUatSession(User u,UATSession uat) {
+    UserUats getUatByUserAndUatSession(User u,UATSession uat) {
         UserUats.withCriteria(uniqueResult: true) {
             eq("user",u)
             eq("uats",uat)
             ne("status",Status.Completed)
+        }
+    }
+
+    Integer getUatCounts(UATSession uat,Status status) {
+        def c = UserUats.createCriteria()
+        c.count {
+            eq("uats",uat)
+            if(status)
+                eq("status",status)
         }
     }
 
@@ -82,6 +103,14 @@ class UATService {
             isNull("passed")
             order('createDate','desc')
         }?.get(0)
+    }
+
+    @CompileStatic
+    Boolean setStatus(Status status,String uatId,User u) {
+        UserUats uuat = getUatByUserAndUatSession(u,findUatById(uatId))
+        uuat.status = status
+        uuat.save(failOnError:true)
+        true
     }
 
      def getUatQues(User u, String uatId) {

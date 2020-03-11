@@ -60,7 +60,10 @@ function createIPQ(id,text,bodyId,headId,frm) {
     $("#" + frm).append(elm);
 }
 
+const cstatus = "Complete";
+
 $("#save-btn").on("click",{type:"Save" },subanswers);
+$("#complete-btn").on("click",{type:cstatus },subanswers);
 
 function getFormKeys() {
     let myName ={};
@@ -70,23 +73,36 @@ function getFormKeys() {
     return Object.keys(myName);
 }
 
+function sendAns(status){
+    $.ajax({
+        url: window.fmBaseDir + 'saveQandRes?st=' + status,
+        method: "POST",
+        data: $("#ansFrm").serialize(),
+        cache: false
+    }).done(function (data) {
+
+        if (!data.msg) {
+            if(cstatus == status) {
+                //go home
+                $(window).off('beforeunload');
+                window.location.href = window.fmBaseDir + "../home/index";
+            }
+            $('#msg').html("You made a great Save!");
+        } else {
+            alert(data.msg);
+        }
+    });
+}
+
+
 function subanswers(event) {
     let status = event.data.type;
     try {
+        $('#msg').html("");
         if($("#ansFrm")[0].checkValidity()) {
-
-            $.ajax({
-                url: window.fmBaseDir + 'saveQandRes?st=' + status,
-                method: "POST",
-                data: $("#ansFrm").serialize(),
-                cache: false
-            }).done(function (data) {
-                if (!data.msg) {
-                        $('#msg').html("You made a great Save!");
-                } else {
-                    alert(data.msg);
-                }
-            });
+            if(status === "Save" || confirm("Once You Confirm this dialog You Will not be able to go back. Are you sure you want to continue?")) {
+                sendAns(status);
+            }
         } else {
             let j = 0;
             let ourKeys = getFormKeys();

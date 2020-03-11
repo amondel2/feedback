@@ -41,6 +41,20 @@ class HomeController {
         }
     }
 
+    @Secured(['ROLE_ADMIN','ROLE_UAT_ADMIN'])
+    def getUatReport() {
+        def res = uatService.getActiveUATs()?.collect{ UATSession uat ->
+          [name:uat.toString(),total:uatService.getUatCounts(uat,null),notStartedtotal:uatService.getUatCounts(uat,Status.NotStarted),
+           activetotal:uatService.getUatCounts(uat,Status.Active),completedTotal:uatService.getUatCounts(uat,Status.Completed)]
+        }
+        withFormat {
+            '*' {
+                render res as JSON
+            }
+        }
+    }
+
+
     def index() {
         render(view:"index")
     }

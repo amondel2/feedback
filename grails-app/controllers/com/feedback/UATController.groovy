@@ -46,6 +46,7 @@ class UATController {
         try {
             if (session["uatSession"]?.uatId) {
                 res = UATService.getUatQues(springSecurityService.getCurrentUser(), session["uatSession"].uatId)
+                UATService.setStatus(Status.Active,session["uatSession"].uatId,springSecurityService.getCurrentUser())
             } else {
                 res = session["uatSession"]
             }
@@ -66,6 +67,8 @@ class UATController {
         def res = [:]
         try {
             res = UATService.saveUATQuestions(springSecurityService.getCurrentUser(), session["uatSession"].uatId, params)
+            if(params.st == "Complete")
+                UATService.setStatus(Status.Completed,session["uatSession"].uatId,springSecurityService.getCurrentUser())
         } catch (Exception e) {
             res = [msg:e.getMessage(),st:e.getStackTrace(),ses:session["uatSession"]]
         }

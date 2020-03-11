@@ -11,9 +11,9 @@ class UserUats extends GemericDomainObject {
         static belongsTo = [user:User,uats:UATSession]
 
         static constraints = {
+                status nullable: false
                 user unique: 'uats'
                 uats unique: 'user'
-                status nullable: false
                 machinenName nullable: false, blank: false
         }
 

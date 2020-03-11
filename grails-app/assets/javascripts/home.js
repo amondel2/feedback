@@ -26,6 +26,21 @@ if($("#iandq").length > 0 ) {
     });
 }
 
+if($("#uatstatus").length > 0 ) {
+    $.ajax({
+        url: window.fmBaseDir + 'getUatReport',
+        method: "GET",
+        cache: false
+    }).done(function (data) {
+        if (data) {
+            processdate($("#uatstatus"), data,['Name','Total','Not Stated','Active','Completed'],['name','total','notStartedtotal','activetotal','completedTotal'],"");
+
+        } else {
+            alert(data[1]);
+        }
+    });
+}
+
 function processdate(elm,msg,head,elms,linkLoc) {
     if(msg.error) {
         elm.html(msg.error)

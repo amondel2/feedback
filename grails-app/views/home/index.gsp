@@ -35,8 +35,10 @@
         <div id="UATS">Loading .. <asset:image src="spinner.gif" /></div>
 
         <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UAT_ADMIN">
-        <h3>Issues & Questons</h3>
-        <div id="iandq">Loading .. <asset:image src="spinner.gif" /></div>
+            <h3>Issues & Questons</h3>
+            <div id="iandq">Loading .. <asset:image src="spinner.gif" /></div>
+            <h3>Uat Report</h3>
+            <div id="uatstatus">Loading .. <asset:image src="spinner.gif" /></div>
         </sec:ifAnyGranted>
     </div>
 </sec:ifLoggedIn>
