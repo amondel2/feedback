@@ -22,3 +22,10 @@
 body {
 	padding-top: 52px !important;
 }
+
+.dropdown-item-checked::before {
+	position: absolute;
+	left: .4rem;
+	content: '✓';
+	font-weight: 600;
+}

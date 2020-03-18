@@ -56,7 +56,7 @@
                 <div class="card">
                     <div class="card-header" id="iqhead${q.id}">
                         <h2 class="mb-0">
-                            <button class="btn btn-link collapsed text-truncate" type="button" data-toggle="collapse" data-target="#iq${q.id}" aria-expanded="false" aria-controls="iq${q.id}">
+                            <button class="btn btn-link collapsed text-truncate <g:if test="${q.issueResponse}">dropdown-item-checked</g:if>" type="button" data-toggle="collapse" data-target="#iq${q.id}" aria-expanded="false" aria-controls="iq${q.id}">
                                 ${q.issueDescription}
                             </button>
                         </h2>
@@ -77,7 +77,7 @@
             <div class="card">
                 <div class="card-header" id="iphead${q.id}">
                     <h2 class="mb-0">
-                        <button class="btn btn-link collapsed text-truncate" type="button" data-toggle="collapse" data-target="#ip${q.id}" aria-expanded="false" aria-controls="ip${q.id}">
+                        <button class="btn btn-link collapsed text-truncate <g:if test="${q.issueResponse}">dropdown-item-checked</g:if>" type="button" data-toggle="collapse" data-target="#ip${q.id}" aria-expanded="false" aria-controls="ip${q.id}">
                             ${q.issueDescription}
                         </button>
                     </h2>
