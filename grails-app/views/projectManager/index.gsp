@@ -26,7 +26,7 @@
                 <asset:stylesheet src="themes/default/style.min.css" />
 	</head>
 	<body>
-		<h1>Goal Management</h1>
+		<h1>People Management</h1>
     <form method="POST" id="YearChangeFrm">
         <div>Select Year: <g:datePicker name="myDate" default="${date.getTime()}" precision="year" relativeYears="[-3..2]"/> </div>
     </form>
