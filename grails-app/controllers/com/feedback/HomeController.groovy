@@ -45,7 +45,7 @@ class HomeController {
     def getUatReport() {
         def res = uatService.getActiveUATs()?.collect{ UATSession uat ->
           [name:uat.toString(),total:uatService.getUatCounts(uat,null),notStartedtotal:uatService.getUatCounts(uat,Status.NotStarted),
-           activetotal:uatService.getUatCounts(uat,Status.Active),completedTotal:uatService.getUatCounts(uat,Status.Completed)]
+           activetotal:uatService.getUatCounts(uat,Status.Active) + uatService.getUatCounts(uat,Status.InActive) ,completedTotal:uatService.getUatCounts(uat,Status.Completed)]
         }
         withFormat {
             '*' {

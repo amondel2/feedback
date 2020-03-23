@@ -99,7 +99,7 @@ function subanswers(event) {
     let status = event.data.type;
     try {
         $('#msg').html("");
-        if($("#ansFrm")[0].checkValidity()) {
+        if(status === "Save" || $("#ansFrm")[0].checkValidity()) {
             if(status === "Save" || confirm("Once You Confirm this dialog You Will not be able to go back. Are you sure you want to continue?")) {
                 sendAns(status);
             }

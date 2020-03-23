@@ -6,7 +6,6 @@ class ProgramVersion extends  GemericDomainObject {
         versionNumber nullable: false, blank: false, unique: 'program'
         program nullable: false
         passed nullable: true
-        uatSession nullable: true
     }
 
     static mapping = {
@@ -14,7 +13,8 @@ class ProgramVersion extends  GemericDomainObject {
         version false
     }
 
-    static belongsTo = [program:Program,uatSession:UATSession]
+    static belongsTo = [program:Program]
+    static hasMany = [uats:ProgramVersionUATSessions]
 
     @Override
     String toString() {
@@ -22,7 +22,6 @@ class ProgramVersion extends  GemericDomainObject {
     }
 
     Date createDate = new Date()
-    UATSession uatSession
     Program program
     String versionNumber
     Boolean passed
