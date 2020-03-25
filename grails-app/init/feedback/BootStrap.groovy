@@ -152,8 +152,8 @@ class BootStrap {
 
         Job superv,writter,actor,admin
         Job.withTransaction {
-            superv = Job.findOrCreateByName("Supervisior")
-            writter = Job.findOrCreateByName("Writter")
+            superv = Job.findOrCreateByName("Supervisor")
+            writter = Job.findOrCreateByName("Writer")
             actor = Job.findOrCreateByName("Actor")
             admin = Job.findOrCreateByName("UAT Admin")
             superv.save(failOnError:true)
@@ -200,8 +200,8 @@ class BootStrap {
             q1 = Question.findOrCreateByQuestionAndQuestionType("Did You Execute a Save? ", QuestionType.MultiChoice)
             q2 = Question.findOrCreateByQuestionAndQuestionType("Please Add Any Additional Comments ", QuestionType.Open)
             q3 = Question.findOrCreateByQuestionAndQuestionType("Please Choose How Long you have used the software", QuestionType.MultiChoice)
-            q4 = Question.findOrCreateByQuestionAndQuestionType("Please Rate the Software on Statisfaction", QuestionType.Likert)
-            q5 = Question.findOrCreateByQuestionAndQuestionType("Chose The Best Choice?", QuestionType.Dropdown)
+            q4 = Question.findOrCreateByQuestionAndQuestionType("Please Rate the Software on Satisfaction", QuestionType.Likert)
+            q5 = Question.findOrCreateByQuestionAndQuestionType("Choose the Best Choice", QuestionType.Dropdown)
             [q1,q2,q3,q4,q5].each { it.save(failOnError:true)}
         }
 
@@ -209,17 +209,17 @@ class BootStrap {
         Answer.withTransaction {
             a15  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"Pass",1)
             a16  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"Fail",2)
-            a17  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"NA",3)
+            a17  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q1,"N/A",3)
             a14  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q2,"Please Enter Comments",1)
             a1  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"Less than 3 months",1)
             a2  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"3-10 months",2)
             a3  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"10 months to 3 years",3)
             a4  = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q3,"More than four years",4)
-            a5 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Exceeds All Expections",1)
-            a6 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Exceeds Some Expections",2)
-            a7 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Meets Expections",3)
-            a8 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Doesn't Meet Some Expections",4)
-            a9 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Doesn't Meet Any Expections",5)
+            a5 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Exceeds All Expectations",1)
+            a6 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Exceeds Some Expectations",2)
+            a7 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Meets Expectations",3)
+            a8 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Doesn't Meet Some Expectations",4)
+            a9 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q4,"Doesn't Meet Any Expectations",5)
             a10 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Fries",1)
             a11 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Onion Rings",2)
             a12 = Answer.findOrCreateByQuestionAndAnswerAndOrderNumber(q5,"Beer",3)

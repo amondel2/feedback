@@ -19,7 +19,7 @@
 </head>
 
 <body>
-<h1>UAT FeedBack Tool</h1>
+<h1>UAT Feedback Tool</h1>
 <p class="lead">
 <g:if test='${flash.message}'>
     <div class='login_message'>${flash.message}</div>
@@ -35,9 +35,9 @@
         <div id="UATS">Loading .. <asset:image src="spinner.gif" /></div>
 
         <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UAT_ADMIN">
-            <h3>Issues & Questons</h3>
+            <h3>Issues & Questions</h3>
             <div id="iandq">Loading .. <asset:image src="spinner.gif" /></div>
-            <h3>Uat Report</h3>
+            <h3>UAT Report</h3>
             <div id="uatstatus">Loading .. <asset:image src="spinner.gif" /></div>
         </sec:ifAnyGranted>
     </div>

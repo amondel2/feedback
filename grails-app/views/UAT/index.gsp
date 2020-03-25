@@ -50,7 +50,7 @@
     </div>
 
     <h3>Get Answers to Questions</h3>
-     <button id="myquestions" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Ask A New Question" data-label="Enter Your Question" data-type="Question">Ask A New Question</button>
+     <button id="myquestions" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Ask A New Question" data-label="Enter Your Question" data-type="Question">Ask a New Question</button>
         <div class="accordion" id="questfrm">
             <g:each in="${res.issuesQuestions}" var="q" status="i">
                 <div class="card">
@@ -70,8 +70,8 @@
             </g:each>
         </div>
 
-    <h3>Report an a Issue</h3>
-    <button id="myissues" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Report A New Issue" data-label="Describe Your Issue" data-type="Problem">Report A New Issue</button>
+    <h3>Report an Issue</h3>
+    <button id="myissues" class="btn-secondary btn" data-toggle="modal" data-target="#issueModal" data-title="Report A New Issue" data-label="Describe Your Issue" data-type="Problem">Report a New Issue</button>
     <div class="accordion" id="issuefrm">
         <g:each in="${res.issuesProblems}" var="q" status="i">
             <div class="card">

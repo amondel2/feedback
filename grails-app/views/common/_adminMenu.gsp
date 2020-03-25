@@ -11,6 +11,5 @@
         <li class="nav-item dropdown-item"><a  class="nav-link"  href="${request.contextPath}/userJob">Employee to Job Management</a></li>
         <li class="nav-item dropdown-item"><a  class="nav-link"  href="${request.contextPath}/userRole">Employees Role Management</a></li>
         <li class="nav-item dropdown-item"><a  class="nav-link"  href="${request.contextPath}/userBoss">Employee to Boss Management</a></li>
-        <li class="nav-item dropdown-item"><a  class="nav-link"  href="${request.contextPath}/userJob">Employee to Job Management</a></li>
     </ul>
 </li>
