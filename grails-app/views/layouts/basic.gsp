@@ -32,16 +32,8 @@
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li><a  class="nav-link" href="${request.contextPath}/">Home</a></li>
-             <sec:ifLoggedIn>
-				 <sec:ifAnyGranted roles="ROLE_REPORTER,ROLE_ADMIN">
-				 </sec:ifAnyGranted>
-				 <sec:ifAnyGranted roles="ROLE_ADMIN">
-					<g:render template="/common/adminMenu" />
-				 </sec:ifAnyGranted>
-				 <sec:ifAnyGranted roles="ROLE_ADMIN,ROLE_UAT_ADMIN">
-					 <g:render template="/common/UATADMINMENU" />
-				 </sec:ifAnyGranted>
-             </sec:ifLoggedIn>
+			  <g:render template="/common/navMenu" />
+
             </ul>
 			<ul class="nav navbar-nav ml-auto"><li>
           <sec:ifLoggedIn>

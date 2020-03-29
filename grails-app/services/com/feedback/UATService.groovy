@@ -22,6 +22,30 @@ class UATService {
         } as List<UserUats>
     }
 
+    List<UATSession> findUATs(params){
+        UATSession.withCriteria {
+            if(params.title) {
+                ilike("title","%" + params.title?.trim() + "%" )
+            }
+            if(params.endDate) {
+                or {
+                    lte("endDate", params.endDate)
+                    isNull("endDate")
+                }
+            }
+            if(params.startDate) {
+                gte("startDate", params.startDate)
+            }
+            if(params.program) {
+                program {
+                    ilike("name","%" +  params.program.trim() + "%")
+                }
+            }
+
+        }
+
+    }
+
     List<UATSession> getActiveUATs() {
         def sdate = new Date()
         UATSession.withCriteria {
